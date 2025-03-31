@@ -1,10 +1,19 @@
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 function SongPreview({ song }) {
     return (
         <article className="song-preview">
             <img src={song.imgUrl} alt="" />
-            <h2>{song.songName}</h2>
-            <h4>{song.artists}</h4>
+            <div className="song-link">
+            <Link>{song.songName}</Link>
+            </div>
+            <div className='artists-link'>
+            {song.artists.map((artist, idx) => (
+                    <span key={artist}>
+                        <Link to={`/artist/${artist}`}>{artist}</Link>
+                        {idx < song.artists.length - 1 && ', '}
+                    </span>
+                ))}
+            </div>
         </article>
     )
 }

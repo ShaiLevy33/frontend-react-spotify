@@ -1,3 +1,5 @@
+import { songService } from "../../services/song.service"
+
 export const SET_SONGS = 'SET_SONGS'
 export const SET_SONG = 'SET_SONG'
 export const REMOVE_SONG = 'REMOVE_SONG'
@@ -7,7 +9,9 @@ export const ADD_SONG_MSG = 'ADD_SONG_MSG'
 
 const initialState = {
     songs: [],
-    song: null
+    song: null,
+    lastSongs:[],
+    filterBy: songService.getDefaultFilter()
 }
 
 function songReducer(state = initialState, action) {

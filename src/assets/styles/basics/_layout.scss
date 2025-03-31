@@ -1,6 +1,7 @@
 .main-container {
     display: grid;
     grid-template-columns: 1rem 1fr 1rem;
+    background: black;
 
     > * {
         grid-column: 2;
