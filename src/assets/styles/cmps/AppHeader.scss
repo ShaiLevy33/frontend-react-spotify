@@ -1,16 +1,18 @@
 .app-header {
     display: flex;
-    min-height: 3.5rem;
+    min-height: 2rem;
 
-    background-color: #000;;
-    padding: rem(10px) 1rem;
-    
+    background-color: #000;
+    ;
+    padding: rem(5px) 1rem;
+    align-items: center;
+
     nav {
         display: flex;
         width: 100%;
         align-items: center;
         gap: 1em;
-        
+
         font-size: .8em;
 
         .active {
@@ -53,9 +55,52 @@
             aspect-ratio: 1;
             border-radius: 50%;
         }
-        
+
         .btn-link {
             color: $clr2;
         }
     }
+
+    .icon-wrap {
+        position: absolute;
+        width: 40px;
+        font-size: 25px;
+        color: white;
+        align-items: center;
+    }
+
+    .search-input {
+        display: flex;
+        position: relative;
+        height: 50px;
+        width: 500px;
+        margin: auto;
+        color: white;
+        align-items: center;
+    }
+
+    .space {
+        width: 40%;
+    }
+    .space-home {
+        width: 1%;
+    }
+
+    .login-btn {
+        color: #000;
+        background: white;
+        border-radius: 10px;
+        width: auto;
+    }
+
+    input {
+        padding-left: 40px;
+        background: rgb(45 42 42);
+    }
+    input::placeholder {
+        font-weight: bold;
+        opacity: 0.5;
+        color: white;
+      }
+
 }

@@ -5,9 +5,10 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { logout } from '../store/actions/user.actions'
 import { PageIcon } from '../../public/img/PageIcon.jsx'
 import { HomePageIcon } from '../../public/img/HomePageIcon.jsx'
+import { IoIosSearch } from "react-icons/io";
 
 export function AppHeader() {
-	const user = useSelector(storeState => storeState.userModule.user)
+	// const user = useSelector(storeState => storeState.userModule.user) // 
 	const navigate = useNavigate()
 
 	async function onLogout() {
@@ -22,7 +23,7 @@ export function AppHeader() {
 	function SearchInput({ children , placeholder, type}) {
 		return(
 			<div className="search-input">
-				<div>{children}</div>
+				<div className="icon-wrap">{children}</div>
 				<input type={type} placeholder={placeholder}/>
 				{/* <button>Search</button> */}
 			</div>
@@ -32,20 +33,23 @@ export function AppHeader() {
 	return (
 		<header className="app-header full">
 			<PageIcon color="white" />
+			<span className='space'	/>
 			<HomePageIcon color="white" />
-			<div>
-				<SearchInput placeholder="Search" type="text">
-					
-					</SearchInput>
+			<span className='space-home'	/>
+			{/* add css for input in app-header */}
+			<div> 
+				<SearchInput placeholder="What do you want to play?" type="text">
+					<IoIosSearch/>
+				</SearchInput>
 			</div>
 			<button className="menu-btn">Premuim</button>
 			<button className="menu-btn">Support</button>
 			<button className="menu-btn">Download</button>
 			<button className="menu-btn">Install App</button>
 			<button className="menu-btn">Sign up</button>
-			<button className="menu-btn">Log in</button>
+			<button className="login-btn .e-9640-button">Log in</button>
 
-			<nav>
+			
 				{/* <NavLink to="/" className="logo">
 					E2E Demo
 				</NavLink> */}
@@ -53,21 +57,21 @@ export function AppHeader() {
 				{/* <NavLink to="car">Cars</NavLink> */}
 				{/* <NavLink to="chat">Chat</NavLink> */}
 				{/* <NavLink to="review">Review</NavLink> */}
-
+				{/* <nav>
                 {user?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
 
 				{!user && <NavLink to="login" className="login-link">Login</NavLink>}
 				{user && (
 					<div className="user-info">
-						<Link to={`user/${user._id}`}>
+						<Link to={`user/${user._id}`}> */}
 							{/* {user.imgUrl && <img src={user.imgUrl} />} */}
-							{user.fullname}
-						</Link>
+							{/* {user.fullname} */}
+						{/* </Link> */}
 						{/* <span className="score">{user.score?.toLocaleString()}</span> */}
-						<button onClick={onLogout}>logout</button>
-					</div>
-				)}
-			</nav>
+						{/* <button onClick={onLogout}>logout</button>
+					</div> */}
+				{/* )}
+			</nav> */}
 		</header>
 	)
 }

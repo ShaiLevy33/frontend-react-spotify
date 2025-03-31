@@ -1,6 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router'
 
+import { Provider } from 'react-redux'
 import { HomePage } from './pages/HomePage'
 // import { AboutUs, AboutTeam, AboutVision } from './pages/AboutUs'
 // import { CarIndex } from './pages/CarIndex.jsx'
@@ -17,13 +18,18 @@ import { UserMsg } from './cmps/UserMsg.jsx'
 import { LoginSignup } from './pages/LoginSignup.jsx'
 import { Login } from './pages/Login.jsx'
 import { Signup } from './pages/Signup.jsx'
+import { LeftSideToolbar } from './cmps/LeftSideToolbar.jsx'
+import { store } from './store/store.js'
+
+
 
 export function RootCmp() {
     return (
         <div className="main-container">
             <AppHeader />
             <UserMsg />
-
+            <Provider store={store}>
+            <LeftSideToolbar /> 
             <main>
                 <Routes>
                     <Route path="" element={<HomePage />} />
@@ -36,14 +42,15 @@ export function RootCmp() {
                     <Route path="user/:id" element={<UserDetails />} />
                     <Route path="review" element={<ReviewIndex />} /> */}
                     {/* <Route path="chat" element={<ChatApp />} /> */}
-                    <Route path="admin" element={<AdminIndex />} />
+                    {/* <Route path="admin" element={<AdminIndex />} />
                     <Route path="login" element={<LoginSignup />}>
                         <Route index element={<Login />} />
                         <Route path="signup" element={<Signup />} />
-                    </Route>
+                    </Route> */}
                 </Routes>
             </main>
-            <AppFooter />
+            </Provider>
+            {/* <AppFooter /> */}
         </div>
     )
 }
