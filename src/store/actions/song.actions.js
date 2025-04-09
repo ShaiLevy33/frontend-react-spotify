@@ -3,11 +3,20 @@ import { store } from '../store'
 import { ADD_SONG, REMOVE_SONG, SET_SONGS, SET_SONG, UPDATE_SONG, ADD_SONG_MSG } from '../reducers/song.reducer'
 
 export async function loadSongs(filterBy) {
+    // try {
+    //     const songs = await songService.query(filterBy)
+    //     store.dispatch(getCmdSetSongs(songs))
+    // } catch (err) {
+    //     console.log('Cannot load songs', err)
+    //     throw err
+    // }
     try {
+        const filterBy = store.getState().songModule.filterBy
         const songs = await songService.query(filterBy)
-        store.dispatch(getCmdSetSongs(songs))
+        store.dispatch({ type: SET_SONGS, songs })
     } catch (err) {
-        console.log('Cannot load songs', err)
+        console.log('Having issues with loading robots:', err)
+        showErrorMsg('Having issues with loading robots:')
         throw err
     }
 }

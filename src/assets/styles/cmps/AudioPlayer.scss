@@ -1,0 +1,76 @@
+.audioPlayer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // gap: 1rem; /* Adds spacing between elements */
+    // padding: 1rem;
+    // background-color: #f9f9f9;
+    // border: 1px solid #ccc;
+    // border-radius: 8px;
+    // width: 300px; 
+}
+
+    .forwardBackward{
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        font-family: monospace;
+        font-size: 16px;
+        cursor: pointer;
+
+}
+.forwardBackward:hover{
+}
+.playPause{
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-family: monospace;
+    font-size: 16px;
+    cursor: pointer;
+    justify-content: center;
+
+}
+.current-time{
+    font-size: 25px;
+
+}
+.duration{
+    font-family: monospace;
+    font-size: 16px;
+
+}
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Adds spacing between buttons */
+}
+// input[type=range]{
+
+// }
+.progressBar{
+    --bar-bg: green;
+    --seek-before-width: 0;
+    --seek-before-color: orange;
+    --knobby: blue;
+    --selectKnobby: grey;
+    background: var(--bar-bg);
+    border-radius: 10px;
+    position: relative;
+    width: 100%;
+    height: 11px;
+    outline: none;
+
+    // appearance: none;
+
+}
+.progressBar::before{
+    color: #000;
+    background: green;
+}
+.progressBar::-webkit-slider-thumb{
+    color: #000;
+    background: green;
+}

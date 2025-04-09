@@ -1,6 +1,5 @@
-import React from 'react'
+import React , { useState } from 'react'
 import { Routes, Route } from 'react-router'
-
 import { Provider } from 'react-redux'
 import { HomePage } from './pages/HomePage'
 // import { AboutUs, AboutTeam, AboutVision } from './pages/AboutUs'
@@ -24,16 +23,42 @@ import { store } from './store/store.js'
 
 
 export function RootCmp() {
+
+    // const [toolbarWidth, setToolbarWidth] = useState(250) // Initial width of the sidebar
+    // const [isDragging, setIsDragging] = useState(false)
+
+    // const handleMouseDown = () => {
+    //     setIsDragging(true)
+    // }
+
+    // const handleMouseMove = (e) => {
+    //     if (isDragging) {
+    //         const newWidth = Math.max(50, e.clientX) // Minimum width of 50px
+    //         setToolbarWidth(newWidth)
+    //     }
+    // }
+
+    // const handleMouseUp = () => {
+    //     setIsDragging(false)
+    // }
+
     return (
-        <div className="main-container">
+        <div className="main-container"
+        // onMouseMove={handleMouseMove}
+        // onMouseUp={handleMouseUp}
+        >
             <AppHeader />
             <UserMsg />
             <Provider store={store}>
                 <div className="content-layout">
                     <div className="left-side-toolbar">
+                    {/* //  style={{ width: `${toolbarWidth}px` }}
+                    //  onMouseDown={handleMouseDown}> */}
                         <LeftSideToolbar />
                     </div>
-                    <main className="main-content">
+                    <main className="main-content"
+                    // style={{ flexGrow: 1 }}
+                    >
                         <Routes>
                             <Route path="" element={<HomePage />} />
                             {/* <Route path="about" element={<AboutUs />}>
@@ -52,10 +77,12 @@ export function RootCmp() {
                         <Route path="signup" element={<Signup />} />
                     </Route> */}
                         </Routes>
+                   
+                        
                     </main>
                 </div>
+                <AppFooter></AppFooter>
             </Provider>
-            {/* <AppFooter /> */}
         </div>
     )
 }

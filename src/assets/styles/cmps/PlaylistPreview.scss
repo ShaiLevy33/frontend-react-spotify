@@ -1,0 +1,33 @@
+.playlist-preview {
+    display: flex;
+    flex-direction: column;
+    a{
+     color: white;
+    }
+     p {
+         margin-block: 0 0.2rem;
+         font-size: .85em;
+     }
+     img {
+        display: block;
+        width: 70%;
+    }
+    width: 80%;
+ }
+//  .song-link{
+//      a{
+//          color: white;
+//         }
+//      font-size: small;
+//      font-family: sans-serif;
+   
+//  }
+//  .artists-link{
+//      font-size: small;
+//      font-family: sans-serif;
+//      a{
+//          color: #b3b3b3;
+//      }
+        
+//  }
+ 

@@ -3,16 +3,19 @@
     overflow: hidden; // Quick fix for JSONs in <pre>
     flex-grow: 1; // Take up the remaining space
     padding: 1rem;
-    background: black;
+    // background:  rgb(83, 83, 83);
+    background-color: rgb(83, 83, 83);
+    // background-image: linear-gradient(#121212 100%, #000);
+    background-image: linear-gradient(rgba(0, 0, 0, .6) 0, #121212 100%), var(--background-noise);
 }
 .content-layout {
     display: flex;
     min-height: calc(100vh - 7rem); // Adjust height based on header/footer
-    background-color: black;
+    // background-color: black;
 }
 
 .left-side-toolbar {   
-     background: black;
+     background:#121212;
     width: 250px;
     /* background-color: #f4f4f4; */
     padding: 1rem;
@@ -21,5 +24,38 @@
 
     color: white;
   }
+}
+.encore-dark-theme, .encore-dark-theme .encore-base-set {
+  --background-base: #121212;
+  --background-highlight: #1f1f1f;
+  --background-press: #000;
+  --background-elevated-base: #1f1f1f;
+  --background-elevated-highlight: #2a2a2a;
+  --background-elevated-press: #191919;
+  --background-tinted-base: #ffffff1a;
+  --background-tinted-highlight: #ffffff24;
+  --background-tinted-press: #ffffff36;
+  --text-base: #fff;
+  --text-subdued: #b3b3b3;
+  --text-bright-accent: #1ed760;
+  --text-negative: #f3727f;
+  --text-warning: #ffa42b;
+  --text-positive: #1ed760;
+  --text-announcement: #4cb3ff;
+  --essential-base: #fff;
+  --essential-subdued: #7c7c7c;
+  --essential-bright-accent: #1ed760;
+  --essential-negative: #ed2c3f;
+  --essential-warning: #ffa42b;
+  --essential-positive: #1ed760;
+  --essential-announcement: #4cb3ff;
+  --decorative-base: #fff;
+  --decorative-subdued: #292929;
+}
+:root {
+  --left-sidebar-width: 232;
+  --content-spacing: 16px;
+  --content-max-width: 1955px;
+  --background-noise: url("../assets/img/backgroundImage.png");
 }
 

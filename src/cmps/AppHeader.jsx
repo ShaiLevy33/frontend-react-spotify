@@ -42,11 +42,13 @@ export function AppHeader() {
 					<IoIosSearch/>
 				</SearchInput>
 			</div>
-			<button className="menu-btn">Premuim</button>
+			{/* <button className="menu-btn">Premuim</button>
 			<button className="menu-btn">Support</button>
 			<button className="menu-btn">Download</button>
 			<button className="menu-btn">Install App</button>
-			<button className="menu-btn">Sign up</button>
+			<button className="menu-btn">Sign up</button> */}
+			<span className='space-login'	/>
+			
 			<button className="login-btn .e-9640-button">Log in</button>
 
 			
