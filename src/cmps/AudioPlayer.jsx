@@ -69,19 +69,20 @@ function AudioPlayer() {
                 </button>
                 <button className="forwardBackward"><GiNextButton /></button>
             </div>
-
+            <div className="current-time">
             {/* current time */}
-            <div className="current-time">{calculateTime(currentTime)}</div>
+            {calculateTime(currentTime)}
 
             {/* progress bar */}
             <div>  <input type="range" className="progressBar" defaultValue="0" ref={progressBar} onChange={changeRange}/></div>
 
             {/* duration */}
-            <div className="duration">
+          
                 {/* <input type="range" /> */}
                 {(duration && !isNaN(duration)) && calculateTime(duration)}
-            </div>
+           
 
+            </div>
 
         </div>
     )

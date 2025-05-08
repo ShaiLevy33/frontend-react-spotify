@@ -1,12 +1,19 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
+import { stationsData } from '../../src/assets/data/station.json'
+import { stationsHPData } from '../../src/assets/data/stations-home-page.json'
 
 import fs from 'fs'
 import path from 'path'
 
 
 const PLAYLIST_KEY = 'playlistDB'
+const STATION_KEY = 'stationDB'
+const STATION_HP_KEY = 'stationHPDB'
+
 _createPlaylists()
+_createStations()
+_createStationsHomePage()
 
 export const playlistService = {
     query,
@@ -180,4 +187,22 @@ function _createPlaylists() {
         utilService.saveToStorage(PLAYLIST_KEY, playlists)
     }
     console.log('playlists', playlists)
+}
+function _createStations() {
+    let stations = utilService.loadFromStorage(STATION_KEY) || []
+
+    if (!stations || !stations.length) {
+           stations = stationsData
+        utilService.saveToStorage(STATION_KEY, stations)
+    }
+    return stations
+}
+function _createStationsHomePage() {
+    let stationsHomePage = utilService.loadFromStorage(STATION_HP_KEY) || []
+
+    if (!stationsHomePage || !stationsHomePage.length) {
+           stationsHomePage = stationsHPData
+        utilService.saveToStorage(STATION_HP_KEY, stationsHomePage)
+    }
+    return stationsHomePage
 }

@@ -1,12 +1,15 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
+import { songsData } from '../../src/assets/data/track.json'
 
 import fs from 'fs'
 import path from 'path'
 
 
 const SONG_KEY = 'songDB'
+const SONGNEW_KEY = 'newsongDB' // from 09/05/2025
 _createSongs()
+_createSongsNew()
 
 export const songService = {
     query,
@@ -188,4 +191,14 @@ function _createSongs() {
         utilService.saveToStorage(SONG_KEY, songs)
     }
     console.log('songs', songs)
+}
+function _createSongsNew() {
+
+    let songs = utilService.loadFromStorage(SONGNEW_KEY) || []
+
+    if (!songs || !songs.length) {
+        songs = songsData
+        utilService.saveToStorage(SONGNEW_KEY, songs)
+    }
+    return songs
 }

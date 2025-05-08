@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    // position: fixed;
 
     min-height: 3.5rem;
 
@@ -21,6 +22,11 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+     a {
+        color: white;
+        font-size: small;
+        font-family: sans-serif; 
+    }
 
     p {
         margin: 0;
@@ -37,4 +43,34 @@
             color: $clr5;
         }
     }
+}
+.middle-bottom-audio-player{
+
+    // clear: left;
+}
+.left-bottom-picture-artist{
+
+    // float: left;
+    display: flex;
+    position: absolute;
+    left: 10px;
+    img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 10%;
+        object-fit: cover;
+    }
+    
+    .artist-name {
+        font-size: 1.2rem;
+        color: $clr1;
+    }
+}
+.left-bottom-picture-artist-text{
+    display: inline-block;
+    position: absolute;
+    left: 50px;
+    top: 3rem;
+    font-size: 1.2rem;
+    color: $clr1;
 }
