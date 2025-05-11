@@ -4,7 +4,7 @@ function PlaylistPreview({ playlist }) {
         <article className="playlist-preview">
             <img src={playlist.imgUrl} alt="" />
             <div className="playlist-link">
-            <Link>{playlist.playlistName}</Link>
+            <Link to={`/playlist/${playlist._id.$oid}`}>{playlist.name}</Link>
             </div>
         </article>
     )

@@ -1,6 +1,6 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
-import { songsData } from '../../src/assets/data/track.json'
+import songsData from '../../src/assets/data/track.json'
 
 import fs from 'fs'
 import path from 'path'
@@ -8,7 +8,7 @@ import path from 'path'
 
 const SONG_KEY = 'songDB'
 const SONGNEW_KEY = 'newsongDB' // from 09/05/2025
-_createSongs()
+// _createSongs()
 _createSongsNew()
 
 export const songService = {
@@ -24,7 +24,7 @@ export const songService = {
 window.songService = songService
 
 function query(filterBy = {}) {
-    return storageService.query(SONG_KEY)
+    return storageService.query(SONGNEW_KEY)
         .then(songs => {
             if (filterBy.name) {
                 const regExp = new RegExp(filterBy.name, 'i')
@@ -56,7 +56,7 @@ function get(songId) {
 }
 
 function remove(songId) {
-    return storageService.remove(SONG_KEY, songId)
+    return storageService.remove(SONGNEW_KEY, songId)
 }
 
 function save(song) {
@@ -128,77 +128,77 @@ function getRandomImage() {
     return `/assets/img/${files[randomIndex]}`
 }
 
-function _createSongs() {
+// function _createSongs() {
 
-    let songs = utilService.loadFromStorage(SONG_KEY)
-    if (!songs || !songs.length) {
-        const songNames = ['רשימת קניות', 'החדר מסתובב', 'חולמת', 'פרש בודד', 'Anxiety', 'Puzzle',
-            'Outdoor', 'Battery Powered']
-        const songsImages = ['Dinosaur.jpg', 'Jeep.jpg', 'Mouse.avif', 'Teady Bear.jpg',
-            'Telephone.jpg', 'Tracktor.jpg']
+//     let songs = utilService.loadFromStorage(SONG_KEY)
+//     if (!songs || !songs.length) {
+//         const songNames = ['רשימת קניות', 'החדר מסתובב', 'חולמת', 'פרש בודד', 'Anxiety', 'Puzzle',
+//             'Outdoor', 'Battery Powered']
+//         const songsImages = ['Dinosaur.jpg', 'Jeep.jpg', 'Mouse.avif', 'Teady Bear.jpg',
+//             'Telephone.jpg', 'Tracktor.jpg']
 
-        const songs = [
-            {
-                _id: utilService.makeId(),
-                songName: 'רשימת קניות',
-                imgUrl: 'https://i.scdn.co/image/ab67616d00001e02442df3fedce56042a4140361',
-                artists: ['STILLA', 'Ness', 'Odeya'],
-                createdAt: Date.now()
+//         const songs = [
+//             {
+//                 _id: utilService.makeId(),
+//                 songName: 'רשימת קניות',
+//                 imgUrl: 'https://i.scdn.co/image/ab67616d00001e02442df3fedce56042a4140361',
+//                 artists: ['STILLA', 'Ness', 'Odeya'],
+//                 createdAt: Date.now()
 
-            },
-            {
-                _id: utilService.makeId(),
-                songName: 'Show Me Love',
-                imgUrl: 'https://i.scdn.co/image/ab67616d00001e029263dc4504ccf1b02899d9ae',
-                artists: ['WizTheMc', 'bees & honey'],
-                createdAt: Date.now()
+//             },
+//             {
+//                 _id: utilService.makeId(),
+//                 songName: 'Show Me Love',
+//                 imgUrl: 'https://i.scdn.co/image/ab67616d00001e029263dc4504ccf1b02899d9ae',
+//                 artists: ['WizTheMc', 'bees & honey'],
+//                 createdAt: Date.now()
 
-            },
-            {
-                _id: utilService.makeId(),
-                songName: 'פרפרים',
-                imgUrl: 'https://i.scdn.co/image/ab67616d00001e02acea0a8cdfae26691efac36e',
-                artists: ['Odeya'],
-                createdAt: Date.now()
+//             },
+//             {
+//                 _id: utilService.makeId(),
+//                 songName: 'פרפרים',
+//                 imgUrl: 'https://i.scdn.co/image/ab67616d00001e02acea0a8cdfae26691efac36e',
+//                 artists: ['Odeya'],
+//                 createdAt: Date.now()
 
-            },
-            {
-                _id: utilService.makeId(),
-                songName: 'twilight zone',
-                imgUrl: 'https://i.scdn.co/image/ab67616d00001e022ec9889c4127d1b6a30d9887',
-                artists: ['Ariana Grande'],
-                createdAt: Date.now()
+//             },
+//             {
+//                 _id: utilService.makeId(),
+//                 songName: 'twilight zone',
+//                 imgUrl: 'https://i.scdn.co/image/ab67616d00001e022ec9889c4127d1b6a30d9887',
+//                 artists: ['Ariana Grande'],
+//                 createdAt: Date.now()
 
-            },
-            {
-                _id: utilService.makeId(),
-                songName: 'Anxiety',
-                imgUrl: 'https://i.scdn.co/image/ab67616d00001e02ea29212b801087f18319c187',
-                artists: ['Doechii'],
-                createdAt: Date.now()
+//             },
+//             {
+//                 _id: utilService.makeId(),
+//                 songName: 'Anxiety',
+//                 imgUrl: 'https://i.scdn.co/image/ab67616d00001e02ea29212b801087f18319c187',
+//                 artists: ['Doechii'],
+//                 createdAt: Date.now()
 
-            },
-            {
-                _id: utilService.makeId(),
-                songName: 'חולון פריז',
-                imgUrl: 'https://i.scdn.co/image/ab67616d00001e028192406c0357a64412782d19',
-                artists: ['Gal Adam'],
-                createdAt: Date.now()
+//             },
+//             {
+//                 _id: utilService.makeId(),
+//                 songName: 'חולון פריז',
+//                 imgUrl: 'https://i.scdn.co/image/ab67616d00001e028192406c0357a64412782d19',
+//                 artists: ['Gal Adam'],
+//                 createdAt: Date.now()
 
-            }
+//             }
 
-        ]
-        utilService.saveToStorage(SONG_KEY, songs)
-    }
-    console.log('songs', songs)
-}
+//         ]
+//         utilService.saveToStorage(SONG_KEY, songs)
+//     }
+//     console.log('songs', songs)
+// }
 function _createSongsNew() {
 
     let songs = utilService.loadFromStorage(SONGNEW_KEY) || []
-
+remove('65781a35fb70cb6af484d300')
     if (!songs || !songs.length) {
-        songs = songsData
+       const songs = songsData
         utilService.saveToStorage(SONGNEW_KEY, songs)
     }
-    return songs
+    // return songs
 }

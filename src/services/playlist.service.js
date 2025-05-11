@@ -1,19 +1,19 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
-import { stationsData } from '../../src/assets/data/station.json'
-import { stationsHPData } from '../../src/assets/data/stations-home-page.json'
+import stationsData from '../../src/assets/data/station.json'
+import stationsHPData from '../../src/assets/data/stations-home-page.json'
 
 import fs from 'fs'
 import path from 'path'
 
 
-const PLAYLIST_KEY = 'playlistDB'
-const STATION_KEY = 'stationDB'
-const STATION_HP_KEY = 'stationHPDB'
+// const PLAYLIST_KEY = 'playlistDB'
+const PLAYLIST_KEY= 'stationDB'
+const PLAYLIST_HP_KEY = 'stationHPDb'
 
+// _createPlaylists()
 _createPlaylists()
-_createStations()
-_createStationsHomePage()
+_createPlaylistsHomePage()
 
 export const playlistService = {
     query,
@@ -134,75 +134,76 @@ function getRandomImage() {
 
 
 
-function _createPlaylists() {
+// function _createPlaylists() {
 
+//     let playlists = utilService.loadFromStorage(PLAYLIST_KEY)
+//     if (!playlists || !playlists.length) {
+
+//         const playlists = [
+//             {
+//                 _id: utilService.makeId(),
+//                 playlistName: 'הפלייליסט הכי גדול בישראל, עם השירים הכי חמים של היום ומחר. קאבר:תמר ריילי   ',
+//                 imgUrl: 'https://i.scdn.co/image/ab67706f00000002e51235569afc9d28b2820a18',
+//                 createdAt: Date.now()
+
+//             },
+//             {
+//                 _id: utilService.makeId(),
+//                 playlistName: 'השירים ששמעתן.ם הכי הרבה ב-2024. קאבר:אושר כהן',
+//                 imgUrl: 'https://i.scdn.co/image/ab67706f000000028005fc0aa0dbcb4df92d6e67',
+//                 createdAt: Date.now()
+
+//             },
+//             {
+//                 _id: utilService.makeId(),
+//                 playlistName: 'האמנים והאמנים ששמעתי הכי הרבה בשנת 2024. שער: עומר אדם',
+//                 imgUrl: 'https://i.scdn.co/image/ab67706f000000020fcb8f95abf19b277e38f1df',
+//                 createdAt: Date.now()
+
+//             },
+//             {
+//                 _id: utilService.makeId(),
+//                 playlistName: 'השירים הים-תיכוניים שעשו את 2024. קאבר: אודיה',
+//                 imgUrl: 'https://i.scdn.co/image/ab67706f00000002d5ce536cc92933f389057438',
+//                 createdAt: Date.now()
+
+//             },
+//             {
+//                 _id: utilService.makeId(),
+//                 playlistName: 'כל הפופ היפה והמרגש של ישראל. קאבר: ענבל ביבי ',
+//                 imgUrl: 'https://i.scdn.co/image/ab67706f000000025fc85af56971b9e6f992cedb',
+//                 createdAt: Date.now()
+
+//             },
+//             {
+//                 _id: utilService.makeId(),
+//                 playlistName: 'האמנים הגדולים של ישראל בלייב! עצמו עיניים ודמיינו שאתם שם ✨קאבר: טונה ',
+//                 imgUrl: 'https://i.scdn.co/image/ab67706f00000002e869fa3fbc365893cab39e20',
+//                 createdAt: Date.now()
+
+//             }
+
+//         ]
+//         utilService.saveToStorage(PLAYLIST_KEY, playlists)
+//     }
+//     console.log('playlists', playlists)
+// }
+function _createPlaylists() {
+    
     let playlists = utilService.loadFromStorage(PLAYLIST_KEY)
     if (!playlists || !playlists.length) {
 
-        const playlists = [
-            {
-                _id: utilService.makeId(),
-                playlistName: 'הפלייליסט הכי גדול בישראל, עם השירים הכי חמים של היום ומחר. קאבר:תמר ריילי   ',
-                imgUrl: 'https://i.scdn.co/image/ab67706f00000002e51235569afc9d28b2820a18',
-                createdAt: Date.now()
-
-            },
-            {
-                _id: utilService.makeId(),
-                playlistName: 'השירים ששמעתן.ם הכי הרבה ב-2024. קאבר:אושר כהן',
-                imgUrl: 'https://i.scdn.co/image/ab67706f000000028005fc0aa0dbcb4df92d6e67',
-                createdAt: Date.now()
-
-            },
-            {
-                _id: utilService.makeId(),
-                playlistName: 'האמנים והאמנים ששמעתי הכי הרבה בשנת 2024. שער: עומר אדם',
-                imgUrl: 'https://i.scdn.co/image/ab67706f000000020fcb8f95abf19b277e38f1df',
-                createdAt: Date.now()
-
-            },
-            {
-                _id: utilService.makeId(),
-                playlistName: 'השירים הים-תיכוניים שעשו את 2024. קאבר: אודיה',
-                imgUrl: 'https://i.scdn.co/image/ab67706f00000002d5ce536cc92933f389057438',
-                createdAt: Date.now()
-
-            },
-            {
-                _id: utilService.makeId(),
-                playlistName: 'כל הפופ היפה והמרגש של ישראל. קאבר: ענבל ביבי ',
-                imgUrl: 'https://i.scdn.co/image/ab67706f000000025fc85af56971b9e6f992cedb',
-                createdAt: Date.now()
-
-            },
-            {
-                _id: utilService.makeId(),
-                playlistName: 'האמנים הגדולים של ישראל בלייב! עצמו עיניים ודמיינו שאתם שם ✨קאבר: טונה ',
-                imgUrl: 'https://i.scdn.co/image/ab67706f00000002e869fa3fbc365893cab39e20',
-                createdAt: Date.now()
-
-            }
-
-        ]
+         const  playlists = playlistsData
         utilService.saveToStorage(PLAYLIST_KEY, playlists)
     }
-    console.log('playlists', playlists)
+    // return stations
 }
-function _createStations() {
-    let stations = utilService.loadFromStorage(STATION_KEY) || []
-
-    if (!stations || !stations.length) {
-           stations = stationsData
-        utilService.saveToStorage(STATION_KEY, stations)
-    }
-    return stations
-}
-function _createStationsHomePage() {
-    let stationsHomePage = utilService.loadFromStorage(STATION_HP_KEY) || []
+function _createPlaylistsHomePage() {
+    let stationsHomePage = utilService.loadFromStorage(PLAYLIST_HP_KEY) 
 
     if (!stationsHomePage || !stationsHomePage.length) {
-           stationsHomePage = stationsHPData
+         const  stationsHomePage = stationsHPData
         utilService.saveToStorage(STATION_HP_KEY, stationsHomePage)
     }
-    return stationsHomePage
+    // return stationsHomePage
 }

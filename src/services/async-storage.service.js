@@ -13,7 +13,7 @@ function query(entityType, delay = 500) {
 
 function get(entityType, entityId) {
     return query(entityType).then(entities => {
-        const entity = entities.find(entity => entity._id === entityId)
+        const entity = entities.find(entity => entity._id.$oid === entityId)
         if (!entity) throw new Error(`Get failed, cannot find entity with id: ${entityId} in: ${entityType}`)
         return entity
     })
@@ -41,7 +41,7 @@ function put(entityType, updatedEntity) {
 
 function remove(entityType, entityId) {
     return query(entityType).then(entities => {
-        const idx = entities.findIndex(entity => entity._id === entityId)
+        const idx = entities.findIndex(entity => entity._id.$oid === entityId)
         if (idx < 0) throw new Error(`Remove failed, cannot find entity with id: ${entityId} in: ${entityType}`)
         entities.splice(idx, 1)
         _save(entityType, entities)

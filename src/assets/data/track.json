@@ -74,13 +74,6 @@
 },
 {
   "_id": {
-    "$oid": "65781a35fb70cb6af484d300"
-  },
-  "spotifyId": "2YSzYUF3jWqb9YP9VXmpjE",
-  "youtubeId": "fCRCLsJQWUQ"
-},
-{
-  "_id": {
     "$oid": "65781d39fb70cb6af484d302"
   },
   "spotifyId": "4uUG5RXrOk84mYEfFvj3cK",

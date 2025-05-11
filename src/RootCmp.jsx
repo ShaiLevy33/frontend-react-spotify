@@ -14,6 +14,7 @@ import { AdminIndex } from './pages/AdminIndex.jsx'
 import { AppHeader } from './cmps/AppHeader'
 import { AppFooter } from './cmps/AppFooter'
 import { UserMsg } from './cmps/UserMsg.jsx'
+import { PlaylistDetails } from './pages/PlaylistDetails.jsx'
 import { LoginSignup } from './pages/LoginSignup.jsx'
 import { Login } from './pages/Login.jsx'
 import { Signup } from './pages/Signup.jsx'
@@ -60,7 +61,9 @@ export function RootCmp() {
                     // style={{ flexGrow: 1 }}
                     >
                         <Routes>
-                            <Route path="" element={<HomePage />} />
+                            {/* <Route path="" element={<HomePage />} /> */}
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/playlist/:id" element={<PlaylistDetails/>} />
                             {/* <Route path="about" element={<AboutUs />}>
                         <Route path="team" element={<AboutTeam />} />
                         <Route path="vision" element={<AboutVision />} />
