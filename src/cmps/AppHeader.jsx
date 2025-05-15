@@ -11,6 +11,10 @@ export function AppHeader() {
 	// const user = useSelector(storeState => storeState.userModule.user) // 
 	const navigate = useNavigate()
 
+	    const handleLogin = () => {
+        navigate('/login')
+    }
+
 	async function onLogout() {
 		try {
 			await logout()
@@ -49,7 +53,8 @@ export function AppHeader() {
 			<button className="menu-btn">Sign up</button> */}
 			<span className='space-login'	/>
 			
-			<button className="login-btn .e-9640-button">Log in</button>
+			<button className="login-btn .e-9640-button"
+			onClick={handleLogin}>Log in</button>
 
 			
 				{/* <NavLink to="/" className="logo">

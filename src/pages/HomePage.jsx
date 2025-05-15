@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import {LeftSideToolbar} from "../cmps/LeftSideToolbar"
 import {SongList} from "../cmps/SongList"
 import { PlaylistList } from '../cmps/PlaylistList.jsx'
 import { songService } from "../services/song.service.js"

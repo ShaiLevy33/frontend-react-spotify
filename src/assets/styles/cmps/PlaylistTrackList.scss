@@ -7,6 +7,7 @@
             cursor: pointer;
         }
     }
+
     img{
         width: 5%;
     }
@@ -15,5 +16,18 @@
     }
     th{
         color: white;
+        width: '25%';
+    }
+    .track-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .track-title{
+        display: grid;
+        a{
+            color: rgba(255, 255, 255, 0.623);
+            text-decoration: none;
+        }
     }
 }

@@ -1,5 +1,5 @@
 import React , { useState } from 'react'
-import { Routes, Route } from 'react-router'
+import { Routes, Route, useLocation } from 'react-router'
 import { Provider } from 'react-redux'
 import { HomePage } from './pages/HomePage'
 // import { AboutUs, AboutTeam, AboutVision } from './pages/AboutUs'
@@ -25,23 +25,8 @@ import { store } from './store/store.js'
 
 export function RootCmp() {
 
-    // const [toolbarWidth, setToolbarWidth] = useState(250) // Initial width of the sidebar
-    // const [isDragging, setIsDragging] = useState(false)
-
-    // const handleMouseDown = () => {
-    //     setIsDragging(true)
-    // }
-
-    // const handleMouseMove = (e) => {
-    //     if (isDragging) {
-    //         const newWidth = Math.max(50, e.clientX) // Minimum width of 50px
-    //         setToolbarWidth(newWidth)
-    //     }
-    // }
-
-    // const handleMouseUp = () => {
-    //     setIsDragging(false)
-    // }
+    const location = useLocation()
+    const showRegularPage = location.pathname !== '/login'
 
     return (
         <div className="main-container"
@@ -63,7 +48,9 @@ export function RootCmp() {
                         <Routes>
                             {/* <Route path="" element={<HomePage />} /> */}
                             <Route path="/" element={<HomePage />} />
+                            <Route path='/login' element={<Login />}/>
                             <Route path="/playlist/:id" element={<PlaylistDetails/>} />
+                            {/* <Route path="/" element={<UserHomePage />} /> */}
                             {/* <Route path="about" element={<AboutUs />}>
                         <Route path="team" element={<AboutTeam />} />
                         <Route path="vision" element={<AboutVision />} />
@@ -84,7 +71,7 @@ export function RootCmp() {
                         
                     </main>
                 </div>
-                <AppFooter></AppFooter>
+                 <AppFooter />
             </Provider>
         </div>
     )

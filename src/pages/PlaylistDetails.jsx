@@ -6,6 +6,7 @@ import { playlistService } from '../services/playlist.service'
 import { PlaylistTrackList } from '../cmps/PlaylistTrackList'
 
 function PlaylistDetails() {
+    
     const [playlist, setPlaylist] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const params = useParams()
@@ -42,7 +43,7 @@ function PlaylistDetails() {
                 <div className='playlist-page-header-details-user'>
                     <h5>Playlist</h5>
                     <h1>{playlist?.name}</h1>
-                    <h5>img userName {playlist?.tracks.length}</h5>
+                    <h5>img userName {playlist?.tracks.length} songs</h5>
                </div>
            
             </div>

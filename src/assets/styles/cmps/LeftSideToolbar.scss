@@ -1,0 +1,37 @@
+.left-side-toolbar{
+    .toolbar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    padding: 0 16px;
+
+    h4 {
+        margin: 0;
+    }
+
+    button {
+        padding: 4px 12px;
+        border-radius: 1.5rem;
+        border: none;
+        background-color: #1f1f1f;
+        color: white;
+        // background-color: #b3b3b3;
+        cursor: pointer;
+        
+        &:hover {
+            color: white;
+        }
+    }
+}
+.playlist-sideBar-list{
+    display: grid
+}
+.playlist-button{
+    
+    img{
+        width: 55px;
+        height: 55px;
+    }
+    
+}
+}

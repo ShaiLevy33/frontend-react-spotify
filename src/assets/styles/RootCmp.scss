@@ -7,6 +7,8 @@
     background-color: rgb(83, 83, 83);
     // background-image: linear-gradient(#121212 100%, #000);
     background-image: linear-gradient(rgba(0, 0, 0, .6) 0, #121212 100%), var(--background-noise);
+        border-radius: 0.5rem;
+    margin-left: 0.5rem;
 }
 .content-layout {
     display: flex;
@@ -20,6 +22,7 @@
     /* background-color: #f4f4f4; */
     padding: 1rem;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
   h4{
 
     color: white;
