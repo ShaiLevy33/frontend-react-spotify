@@ -1,0 +1,177 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  /* Ensure it's on top */
+}
+
+.popup-content {
+  background-color: rgb(37, 36, 36);
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  /* Adjust as needed */
+  max-width: 580px;
+  /* Maximum width */
+  height: 60vh;
+  /* Adjust as needed */
+  position: relative;
+
+  p{
+    color: white;
+    font-size: 0.8rem;
+    font-family: math;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    color: white;
+    font-size: 1.5rem;
+    font-family: math;
+  }
+}
+
+.popup-edit-btn {
+  background-color: rgb(54, 53, 53);
+  color: grey;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 3rem;
+  font-family: math;
+  width: 14rem;
+  height: 12rem;
+  :hover{
+    background-color: rgb(37, 36, 36);
+    color: white;
+    font-size: medium;
+  }
+  img{
+    width: auto;
+    height: auto;
+  }
+  
+}
+.popup-edit-playlist-img{
+  :hover{
+    background-color: rgb(9, 9, 9);
+  }
+}
+
+.popup-edit-playlist {
+  display: flex;
+  // flex: 1rem;
+  // grid: 4rem;
+}
+
+.popup-edit-playlist-details {
+  display: grid;
+  margin-left: 1rem;
+  // grid-template-columns: 1fr 1fr;
+}
+
+.form_input_container {
+  margin-top: 0.5rem;
+  display: flex;
+  position: relative;
+  width: 18rem;
+  height: 3rem;
+}
+
+.form_input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #ccc;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: inherit;
+  color: #fff;
+  outline: none;
+  padding: 1.25rem;
+  background: none;
+  transition: all 160ms ease-in;
+
+  :hover {
+    border-color: #b43333;
+  }
+
+  :focus {
+    border-color: #b43333;
+  }
+}
+
+.form_label {
+  position: absolute;
+  top: -0.9rem;
+  left: 0.8rem;
+  padding: 0 0.5rem;
+  color: #ccc;
+  cursor: text;
+  transition: top 200ms ease-in, left 200ms ease-in font-size 200ms ease-in;
+  font-family: inherit;
+  font-size: inherit;
+  background-color: rgb(37, 36, 36);
+}
+
+.form-input:focus.form_label,
+.form-input:not(:placeholder-shown).form_input:not(:focus).form_label {
+  top: -0.5rem;
+  left: 0.8rem;
+  font-size: 0.75rem;
+}
+
+.save-button-edit {
+  display: flex;
+  justify-content: flex-end;
+  :hover {
+      background-color: rgba(255, 255, 255, 0.692);
+      color: black;
+
+}
+}
+    
+  .save-button{
+    width: 7rem;
+    height: 3rem;
+    background-color: white;
+    color: black;
+    border-radius: 1.5rem;
+    // font: bold 2rem ;
+
+  :hover {
+   background-color: rgba(255, 255, 255, 0.385);
+      color: black;   
+    }
+  }
+
+.popUpEdit {
+  display: grid;
+}
+
+.popup-title {
+  color: white;
+  font-size: 0.5rem;
+  font-family: math;
+}
+
+.popup-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}

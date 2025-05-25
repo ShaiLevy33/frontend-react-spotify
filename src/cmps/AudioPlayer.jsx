@@ -5,7 +5,8 @@ import { FaPlayCircle } from "react-icons/fa";
 import { FaCirclePause } from "react-icons/fa6";
 import { TiArrowShuffle } from "react-icons/ti";
 
-function AudioPlayer() {
+function 
+AudioPlayer( { src }) {
     const [isPlaying, setIsPlaying] = useState(false)
     const [duration, setDuration] = useState(0)
     const [currentTime, setCurrentTime] = useState(0)
@@ -59,8 +60,9 @@ function AudioPlayer() {
 
     return (
         <div className="audioPlayer" >
-            <audio ref={audioPlayer} src="https://cdn.simplecast.com/audio/cae8b0eb-d9a9-480d-a652-0defcbe047f4/episodes/af52a99b-88c0-4638-b120-d46e142d06d3/audio/500344fb-2e2b-48af-be86-af6ac341a6da/default_tc.mp3" preload="metadata" >
-            </audio>
+            <audio ref={audioPlayer}  src={src}/>
+            {/* src="https://cdn.simplecast.com/audio/cae8b0eb-d9a9-480d-a652-0defcbe047f4/episodes/af52a99b-88c0-4638-b120-d46e142d06d3/audio/500344fb-2e2b-48af-be86-af6ac341a6da/default_tc.mp3" preload="metadata" > */}
+            {/* </audio> */}
             <div className="controls">
                 <button className="shuffle" ><TiArrowShuffle /></button>
                 <button className="forwardBackward"><GiPreviousButton /></button>

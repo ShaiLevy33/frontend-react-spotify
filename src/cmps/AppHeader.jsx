@@ -11,9 +11,12 @@ export function AppHeader() {
 	// const user = useSelector(storeState => storeState.userModule.user) // 
 	const navigate = useNavigate()
 
-	    const handleLogin = () => {
-        navigate('/login')
-    }
+	const handleLogin = () => {
+		navigate('/login')
+	}
+	const handleNavHome = () => {
+		navigate('/')
+	}
 
 	async function onLogout() {
 		try {
@@ -24,11 +27,11 @@ export function AppHeader() {
 			showErrorMsg('Cannot logout')
 		}
 	}
-	function SearchInput({ children , placeholder, type}) {
-		return(
+	function SearchInput({ children, placeholder, type }) {
+		return (
 			<div className="search-input">
 				<div className="icon-wrap">{children}</div>
-				<input type={type} placeholder={placeholder}/>
+				<input type={type} placeholder={placeholder} />
 				{/* <button>Search</button> */}
 			</div>
 		)
@@ -36,14 +39,16 @@ export function AppHeader() {
 
 	return (
 		<header className="app-header full">
-			<PageIcon color="white" />
-			<span className='space'	/>
+			<button onClick={handleNavHome}>
+				<PageIcon color="white" />
+			</button>
+			<span className='space' />
 			<HomePageIcon color="white" />
-			<span className='space-home'	/>
+			<span className='space-home' />
 			{/* add css for input in app-header */}
-			<div> 
+			<div>
 				<SearchInput placeholder="What do you want to play?" type="text">
-					<IoIosSearch/>
+					<IoIosSearch />
 				</SearchInput>
 			</div>
 			{/* <button className="menu-btn">Premuim</button>
@@ -51,34 +56,37 @@ export function AppHeader() {
 			<button className="menu-btn">Download</button>
 			<button className="menu-btn">Install App</button>
 			<button className="menu-btn">Sign up</button> */}
-			<span className='space-login'	/>
-			
-			<button className="login-btn .e-9640-button"
-			onClick={handleLogin}>Log in</button>
+			<span className='space-login' />
 
-			
-				{/* <NavLink to="/" className="logo">
+			{/* <button className="login-btn .e-9640-button"
+			onClick={handleLogin}>Log in</button> */}
+
+
+			{/* <NavLink to="/" className="logo">
 					E2E Demo
 				</NavLink> */}
-				{/* <NavLink to="about">About</NavLink> */}
-				{/* <NavLink to="car">Cars</NavLink> */}
-				{/* <NavLink to="chat">Chat</NavLink> */}
-				{/* <NavLink to="review">Review</NavLink> */}
-				{/* <nav>
+			{/* <NavLink to="about">About</NavLink> */}
+			{/* <NavLink to="car">Cars</NavLink> */}
+			{/* <NavLink to="chat">Chat</NavLink> */}
+			{/* <NavLink to="review">Review</NavLink> */}
+			{/* <nav>
                 {user?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
 
 				{!user && <NavLink to="login" className="login-link">Login</NavLink>}
 				{user && (
 					<div className="user-info">
 						<Link to={`user/${user._id}`}> */}
-							{/* {user.imgUrl && <img src={user.imgUrl} />} */}
-							{/* {user.fullname} */}
-						{/* </Link> */}
-						{/* <span className="score">{user.score?.toLocaleString()}</span> */}
-						{/* <button onClick={onLogout}>logout</button>
+			{/* {user.imgUrl && <img src={user.imgUrl} />} */}
+			{/* {user.fullname} */}
+			{/* </Link> */}
+			{/* <span className="score">{user.score?.toLocaleString()}</span> */}
+			{/* <button onClick={onLogout}>logout</button>
 					</div> */}
-				{/* )}
+			{/* )}
 			</nav> */}
+			<div className='playlist-header-details'>
+				<img src='https://cdn-icons-png.flaticon.com/512/1077/1077012.png' alt="" />
+			</div>
 		</header>
 	)
 }

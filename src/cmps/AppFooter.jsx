@@ -1,16 +1,18 @@
-import { useSelector } from 'react-redux'
+import { useSelector , useDispatch} from 'react-redux'
 import { AudioPlayer } from './AudioPlayer'
 import { Link } from 'react-router-dom'
 
-export function AppFooter() {
+export function AppFooter({ currentTrack}) {
 	// const count = useSelector(storeState => storeState.userModule.count)
-
+  const dispatch = useDispatch()
 	return (
 		<footer className="app-footer full">
-			{/* <p>Coffeerights &copy; 2024</p> */}
+			{/* <p>Coffeerights &copy; 2024</p> */}x	
 			{/* <p>Count: {count}</p> */}
 			<div className='left-bottom-picture-artist'>
-				<img src="https://i.scdn.co/image/ab67616d00001e02442df3fedce56042a4140361" alt="artist" />
+				    {currentTrack?.imgUrl && currentTrack.imgUrl[0]?.url && currentTrack && (
+        <img key={currentTrack.id} src={currentTrack.imgUrl[0].url} alt="artist" />
+    )}
 				{/* <div className='left-bottom-picture-artist-text'> */}
 				<div className="artist-info">
 				<div className="song-link">
@@ -30,7 +32,7 @@ export function AppFooter() {
 				{/* </div> */}
 			</div>
 			<div className='middle-bottom-audio-player'>
-				<AudioPlayer></AudioPlayer>
+				<AudioPlayer src={currentTrack ? currentTrack.youtubeId : undefined}></AudioPlayer>
 			</div>
 			<div className='right-bottom-volume'></div>
             

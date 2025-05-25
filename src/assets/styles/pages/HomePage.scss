@@ -3,4 +3,73 @@
     h4{
         color: white;
     }
+    .home-page-favorite-playlists{
+        display: grid;
+        width: 80%;
+
+    
+    }
+    .home-page-header-buttons{
+        margin-left: 2rem;
+        button{
+            width: 3rem;
+            height: 2rem;
+            background-color: white;
+            // border: none;
+            border-radius: 1rem;
+            color: #575757;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+    
+    }
+    .home-page-playlist-user{
+        margin-left: 1.6rem;
+        // margin-top: 1rem;
+    }
+
+    .home-page-favorite-playlists-list{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 2fr));
+        // gap: 10px;
+        column-span: 2px;
+        row-gap: 10px;
+        margin-top: 1rem;
+        margin-left: 2rem;
+        margin-bottom: 2.5rem;
+    }
+    .home-page-favorite-playlists-item{
+        display: flex;
+        width: 12rem;
+        height: 3rem;
+        color: white;
+        background-color: #ffffff1a;
+        border-radius: 4px;
+        text-decoration: none;
+        &:hover{
+            background-color: #ffffff37;
+        }
+    }
+    .home-page-playlist-user{
+        h6{
+            color: #b3b3b3;
+        }
+    }
+ 
+
+    .home-page-favorite-playlists-name{
+        margin-left: 0.5rem;
+        // align-self: center;
+        align-content: center;
+    }
+    .home-page-favorite-playlists-img{
+        width: 48px;
+        height: 48px;
+        border-radius: 4px;
+        image{
+        border-top-left-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+        border-radius: 4px;
+        }
+    }
 }

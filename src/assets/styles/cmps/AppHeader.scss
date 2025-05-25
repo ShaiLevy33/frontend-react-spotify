@@ -1,6 +1,7 @@
 .app-header {
     display: flex;
     min-height: 2rem;
+    max-height: 3rem;
 
     background-color: #000;
     ;
@@ -77,6 +78,14 @@
         margin: auto;
         color: white;
         align-items: center;
+    }
+    .playlist-header-details{
+        align-self: center;
+        margin-left: 10rem;
+        img{
+            border-radius: 4px;
+            width: 30px;
+        }
     }
 
     .space {

@@ -1,12 +1,20 @@
 import { Link } from 'react-router-dom'
 function PlaylistPreview({ playlist }) {
     return (
-        <article className="playlist-preview">
+        <div className="playlist-preview">
+            <Link to={`/playlist/${playlist._id.$oid}`}>
+            <div className="playlist-img">
+                
             <img src={playlist.imgUrl} alt="" />
-            <div className="playlist-link">
-            <Link to={`/playlist/${playlist._id.$oid}`}>{playlist.name}</Link>
             </div>
-        </article>
+            <div className="playlist-name">
+          
+            <span>{playlist.name}</span>
+            
+            </div>
+            </Link>
+            
+        </div>
     )
 }
 export  { PlaylistPreview }

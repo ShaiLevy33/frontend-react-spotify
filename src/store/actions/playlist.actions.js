@@ -54,8 +54,9 @@ export async function addPlaylist(playlist) {
     }
 }
 
-export async function updatePlaylist(playlist) {
+export async function updatePlaylist(playlist , playlistId) {
     try {
+        playlist._id.$oid = playlistId
         const savedPlaylist = await playlistService.save(playlist)
         store.dispatch(getCmdUpdatePlaylist(savedPlaylist))
         return savedPlaylist

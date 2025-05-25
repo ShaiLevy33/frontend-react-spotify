@@ -1,16 +1,20 @@
 .playlist-list {
-    display: flex
-    ;
+    display: flex;
+    // ;
     // grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     // gap: .5em;
 
     li {
-        // display: inline;
+        display: flex;
         // grid-template-columns: max-content auto;
         padding: .5em;
+            align-items: center;
+    align-self: center;
+    justify-content: center;
         // background-color: $clr2;
 
         // color: $clr6;
+
 
         .actions {
             justify-self: end;

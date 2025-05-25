@@ -1,5 +1,5 @@
 .playlist-page {
-    // display: flex;
+    display: grid;
     grid-area: main-view;
     min-height: 0;
     width: 100%;
@@ -7,41 +7,98 @@
     -webkit-box-direction: normal;
     background-color: var(--background-base);
     border-radius: 8px;
-    container: main-view-grid-area / inline-size;
-    overflow: hidden;
+    // container: main-view-grid-area / inline-size;
+    // overflow: hidden;
     position: relative;
+        scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+      max-height: 80vh; 
+                  overflow-y: auto;
+            overflow-x: hidden  ;
+            /* Adjust as needed */
 
-    img{
-        width: 60%;
+    .playlist-page-details{
+            overflow-y: auto;
+            overflow-x: hidden  ;
+    /* Optional for better look */
     }
-    .playlist-page-header{
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    top: 0;
-    -webkit-transition: background-color .25s, ease-out;
-    transition: background-color .25s, ease-out;
-    z-index: -1;
-}
-.playlist-page-header-details{
-    display: flex;
-    
-}
-.playlist-page-header-details-img{
-}
-.playlist-page-header-details-user{
-    h1{
-        font-size: 4rem;
+    .playlist-page-header-details-edit-btn{
+        background-color: transparent;
+    }
+
+    span {
+        color: #FFFFFFB3;
+        font-size: 1rem;
+    }
+
+    h5 {
         color: white;
-    }
-    h5{
-        color: #b3b3b3;
         font-size: 0.8rem;
+        font-family: math;
     }
-}
+
+    img {
+        width: 210px;
+    }
+
+    .playlist-header-details {
+        display: flex;
+
+        // position: absolute;
+        // margin-left: 2rem;
+        img {
+            width: 25px;
+            border-radius: 2rem;
+        }
+
+        h5 {
+            color: white;
+            font-size: 1rem;
+        }
+    }
+
+    .playlist-page-header {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        -webkit-transition: background-color .25s, ease-out;
+        transition: background-color .25s, ease-out;
+        z-index: -1;
+    }
+
+    .playlist-page-header-details {
+        display: flex;
+
+    }
+
+    .playlist-page-header-details-img {}
+
+    .playlist-page-header-details-user {
+        margin-left: 2rem;
+
+        h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 0.2rem;
+            // margin-top: 0.5rem;
+        }
+    }
+
+    .playlist-page-header-details-playlist {
+        margin-bottom: 2.5rem;
+
+        // margin-top: 1rem;
+        h1 {
+            font-size: 4rem;
+            color: white;
+        }
+    }
+
+
 }

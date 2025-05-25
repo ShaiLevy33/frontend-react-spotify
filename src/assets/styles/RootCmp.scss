@@ -6,7 +6,7 @@
     // background:  rgb(83, 83, 83);
     background-color: rgb(83, 83, 83);
     // background-image: linear-gradient(#121212 100%, #000);
-    background-image: linear-gradient(rgba(0, 0, 0, .6) 0, #121212 100%), var(--background-noise);
+    background-image: linear-gradient(var(--background-top-color) 0, #121212 100%), var(--background-noise);
         border-radius: 0.5rem;
     margin-left: 0.5rem;
 }
@@ -15,10 +15,33 @@
     min-height: calc(100vh - 7rem); // Adjust height based on header/footer
     // background-color: black;
 }
+// .main-container {
+//     height: 100vh;
+//     min-height: 100vh;
+//     overflow: hidden; // Prevents unwanted scrollbars
+//     display: flex;
+//     flex-direction: column;
+// }
+
+// .content-layout {
+//     flex: 1 1 auto;
+//     display: flex;
+//     min-height: 0; // Allows children to shrink properly
+//     height: 100%;
+// }
+
+// .main-content {
+//     position: relative;
+//         scrollbar-width: thin;
+//             scrollbar-color: #888 transparent;
+//       max-height: 80vh; 
+//                   overflow-y: auto;
+//             overflow-x: hidden  ;
+// }
 
 .left-side-toolbar {   
      background:#121212;
-    width: 250px;
+    width: 300px;
     /* background-color: #f4f4f4; */
     padding: 1rem;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -28,6 +51,7 @@
     color: white;
   }
 }
+
 .encore-dark-theme, .encore-dark-theme .encore-base-set {
   --background-base: #121212;
   --background-highlight: #1f1f1f;
@@ -60,5 +84,6 @@
   --content-spacing: 16px;
   --content-max-width: 1955px;
   --background-noise: url("../assets/img/backgroundImage.png");
+  --background-top-color: rgba(0, 0, 0, .6);
 }
 

@@ -71,8 +71,8 @@ function save(playlist) {
     }
 }
 
-function getEmptyPlaylist(name = '', price = '') {
-    return { name, price }
+function getEmptyPlaylist(name = '', description = '' , imgUrl = '') {
+    return { name, description, imgUrl }
 }
 
 function getDefaultFilter() {
@@ -193,7 +193,7 @@ function _createPlaylists() {
     let playlists = utilService.loadFromStorage(PLAYLIST_KEY)
     if (!playlists || !playlists.length) {
 
-         const  playlists = playlistsData
+         const  playlists = stationsData
         utilService.saveToStorage(PLAYLIST_KEY, playlists)
     }
     // return stations
@@ -203,7 +203,7 @@ function _createPlaylistsHomePage() {
 
     if (!stationsHomePage || !stationsHomePage.length) {
          const  stationsHomePage = stationsHPData
-        utilService.saveToStorage(STATION_HP_KEY, stationsHomePage)
+        utilService.saveToStorage(PLAYLIST_HP_KEY, stationsHomePage)
     }
     // return stationsHomePage
 }

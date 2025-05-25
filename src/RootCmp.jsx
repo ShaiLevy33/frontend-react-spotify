@@ -1,4 +1,4 @@
-import React , { useState } from 'react'
+import React, { useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router'
 import { Provider } from 'react-redux'
 import { HomePage } from './pages/HomePage'
@@ -26,6 +26,7 @@ import { store } from './store/store.js'
 export function RootCmp() {
 
     const location = useLocation()
+    const [currentTrack, setCurrentTrack] = useState(null)
     const showRegularPage = location.pathname !== '/login'
 
     return (
@@ -38,7 +39,7 @@ export function RootCmp() {
             <Provider store={store}>
                 <div className="content-layout">
                     <div className="left-side-toolbar">
-                    {/* //  style={{ width: `${toolbarWidth}px` }}
+                        {/* //  style={{ width: `${toolbarWidth}px` }}
                     //  onMouseDown={handleMouseDown}> */}
                         <LeftSideToolbar />
                     </div>
@@ -48,8 +49,9 @@ export function RootCmp() {
                         <Routes>
                             {/* <Route path="" element={<HomePage />} /> */}
                             <Route path="/" element={<HomePage />} />
-                            <Route path='/login' element={<Login />}/>
-                            <Route path="/playlist/:id" element={<PlaylistDetails/>} />
+                            <Route path='/login' element={<Login />} />
+                            <Route path="/playlist/:id" element={
+                                <PlaylistDetails onTrackSelect={setCurrentTrack} />} />
                             {/* <Route path="/" element={<UserHomePage />} /> */}
                             {/* <Route path="about" element={<AboutUs />}>
                         <Route path="team" element={<AboutTeam />} />
@@ -67,11 +69,11 @@ export function RootCmp() {
                         <Route path="signup" element={<Signup />} />
                     </Route> */}
                         </Routes>
-                   
-                        
+
+
                     </main>
                 </div>
-                 <AppFooter />
+                <AppFooter currentTrack={currentTrack}/>
             </Provider>
         </div>
     )
