@@ -9,19 +9,65 @@
     }
     .track-list-header{
         display:grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
         color:#B3B3B3;
         font-size: 13px;
     }
     .track-row{
         display:grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
         align-items: center;
         padding: 10px 0;
         // border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         color: #B3B3B3;
         font-size: 13px;
+            .FaRegCheckCircle {
+        color: #1db954; // Spotify's green color
+        background-color: transparent;
     }
+    .check-icon-container {
+    width: 40px; // Set a fixed width to maintain layout
+    height: 40px; // Set a fixed height to maintain layout
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    }
+    .icon-with-tooltip {
+    position: relative;
+    display: inline-block;
+
+    .tooltip {
+        visibility: hidden;
+        background-color: #282828;
+        color: white;
+        text-align: center;
+        padding: 5px 10px;
+        border-radius: 4px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        font-size: 14px;
+        
+        &::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #282828 transparent transparent transparent;
+        }
+    }
+
+    &:hover .tooltip {
+        visibility: visible;
+    }
+}
     .track-title-container{
         display: flex;
     }
@@ -81,5 +127,9 @@
 
             
         // }
+    }
+    .button-add-search-table{
+        border: white 1px solid;
+        background-color: transparent;
     }
 }

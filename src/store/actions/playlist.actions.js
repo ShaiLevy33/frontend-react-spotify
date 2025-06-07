@@ -24,7 +24,7 @@ export async function loadPlaylists(filterBy) {
 
 export async function loadPlaylist(playlistId) {
     try {
-        const playlist = await playlistService.getById(playlistId)
+        const playlist = await playlistService.get(playlistId)
         store.dispatch(getCmdSetPlaylist(playlist))
     } catch (err) {
         console.log('Cannot load playlist', err)

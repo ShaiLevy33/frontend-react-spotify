@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-
+import playImg from '../assets/img/play.png';
 import { SongList } from "../cmps/SongList"
 import { PlaylistList } from '../cmps/PlaylistList.jsx'
 import { songService } from "../services/song.service.js"
@@ -11,12 +11,12 @@ import { FastAverageColor } from 'fast-average-color'
 // import { SET_SONGS, SET_FILTER_BY, UPDATE_SONG, ADD_SONG } from '../store/reducers/song.reducer.js'
 
 var countHover = 0
-function HomePage() {
+function HomePage({ onTrackSelect }) {
     const [hoveredIdx, setHoveredIdx] = useState(null)
     const [avgColor, setAvgColor] = useState('#222')
     const imgRef = useRef(null)
 
-    
+
 
     const songs = useSelector(storeState => {
         console.log('storeState:', storeState.songModule.songs);
@@ -63,38 +63,47 @@ function HomePage() {
     }, [filterByP])
 
     const updateAvgColor = (imgUrl) => {
-    if (!imgUrl) return setAvgColor('#222')
-    const fac = new FastAverageColor()
-    const img = new window.Image()
-    img.crossOrigin = 'anonymous'
-    img.src = imgUrl
-    img.onload = () => {
-        fac.getColorAsync(img)
-            .then(color => setAvgColor(color.hex))
-            .catch(() => setAvgColor('#222'))
+        if (!imgUrl) return setAvgColor('#222')
+        const fac = new FastAverageColor()
+        const img = new window.Image()
+        img.crossOrigin = 'anonymous'
+        img.src = imgUrl
+        img.onload = () => {
+            fac.getColorAsync(img)
+                .then(color => setAvgColor(color.hex))
+                .catch(() => setAvgColor('#222'))
+        }
     }
-}
-useEffect(() => {
-    if (avgColor && countHover > 0) {
-        document.documentElement.style.setProperty('--background-top-color', avgColor)
-    }
-    return () => {
-        document.documentElement.style.setProperty('--background-top-color', 'rgba(0, 0, 0, .6)')
-    }
-}, [avgColor])
+    useEffect(() => {
+        if (avgColor && countHover > 0) {
+            document.documentElement.style.setProperty('--background-top-color', avgColor)
+        }
+        return () => {
+            document.documentElement.style.setProperty('--background-top-color', 'rgba(0, 0, 0, .6)')
+        }
+    }, [avgColor])
 
-const handleMouseEnter = (idx, imgUrl) => {
-    countHover++;
-    setHoveredIdx(idx)
-    updateAvgColor(imgUrl)
-}
-
-const handleMouseLeave = () => {
-    setHoveredIdx(null)
-    if (playlists.length > 0) {
-        updateAvgColor(playlists[0].imgUrl)
+    const handleMouseEnter = (idx, imgUrl) => {
+        countHover++;
+        setHoveredIdx(idx)
+        updateAvgColor(imgUrl)
     }
-}
+
+    const handleMouseLeave = () => {
+        setHoveredIdx(null)
+        if (playlists.length > 0) {
+            updateAvgColor(playlists[0].imgUrl)
+        }
+    }
+    const handlePlayPause = (e, playlist) => {
+        e.preventDefault() // Prevent navigation from Link
+        e.stopPropagation() // Prevent event bubbling
+
+        if (playlist?.tracks?.[0]) {
+            onTrackSelect(playlist.tracks[0], true , playlist._id.$oid ) // Play the track
+        }
+    }
+
 
     return (
         <section className="home-page" >
@@ -108,7 +117,7 @@ const handleMouseLeave = () => {
                 </div>
                 <div className="home-page-favorite-playlists">
                     <div className="home-page-favorite-playlists-list">
-                        {playlists.slice(0, 8).map((playlist, idx)=> (
+                        {playlists.slice(0, 8).map((playlist, idx) => (
                             <Link
                                 key={playlist._id.$oid || playlist._id}
                                 to={`/playlist/${playlist._id.$oid || playlist._id}`}
@@ -123,7 +132,15 @@ const handleMouseLeave = () => {
                                 <div className="home-page-favorite-playlists-name">
                                     <h5>{playlist.name}</h5>
                                 </div>
-                                <h4>{playlist.title}</h4>
+                                <div className="home-page-favorite-playlists-creator">
+                                    <h4>{playlist.title}</h4>
+                                </div>
+                                {hoveredIdx === idx && (
+                                    <div className="play-button-overlay">
+                                        <img src={playImg} alt="play" className="play-button"
+                                            onClick={(e) => handlePlayPause(e, playlist)} />
+                                    </div>
+                                )}
                             </Link>
 
                             // </div>
@@ -134,9 +151,9 @@ const handleMouseLeave = () => {
             {/* <h4>Trending songs</h4>
             <SongList songs={songs} /> */}
             <div className="home-page-playlist-user">
-            <h6>Made For</h6>
-            <h4>User user</h4>
-            <PlaylistList playlists={playlists} />
+                <h6>Made For</h6>
+                <h4>User user</h4>
+                <PlaylistList playlists={playlists} onTrackSelect={onTrackSelect}/>
             </div>
         </section >
     )

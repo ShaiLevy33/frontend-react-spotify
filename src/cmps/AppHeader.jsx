@@ -5,7 +5,8 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { logout } from '../store/actions/user.actions'
 import { PageIcon } from '../../public/img/PageIcon.jsx'
 import { HomePageIcon } from '../../public/img/HomePageIcon.jsx'
-import { IoIosSearch } from "react-icons/io";
+import { IoIosSearch } from "react-icons/io"
+import userImage from '../assets/img/profile-whiteBG.svg'
 
 export function AppHeader() {
 	// const user = useSelector(storeState => storeState.userModule.user) // 
@@ -85,7 +86,7 @@ export function AppHeader() {
 			{/* )}
 			</nav> */}
 			<div className='playlist-header-details'>
-				<img src='https://cdn-icons-png.flaticon.com/512/1077/1077012.png' alt="" />
+				<img src={userImage} alt="" />
 			</div>
 		</header>
 	)

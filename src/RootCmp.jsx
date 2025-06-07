@@ -21,19 +21,29 @@ import { Signup } from './pages/Signup.jsx'
 import { LeftSideToolbar } from './cmps/LeftSideToolbar.jsx'
 import { store } from './store/store.js'
 
-
-
 export function RootCmp() {
 
     const location = useLocation()
     const [currentTrack, setCurrentTrack] = useState(null)
+    const [playOrPause, setPlayOrPause] = useState(false)
+    const [playlistId, setPlaylistId] = useState(null)
     const showRegularPage = location.pathname !== '/login'
+    // const [tracks, setTracks] = useState([])
+
+    function handleTrackUpdate(newTrack, playPause , playlistId) {
+        // setTracks(prevTracks => [...prevTracks, newTrack])
+        setCurrentTrack(newTrack ) 
+        setPlaylistId(playlistId)
+        if (playPause !== undefined) {
+            setPlayOrPause(playPause)
+        }
+        else {
+            setPlayOrPause(true)
+        }
+    }
 
     return (
-        <div className="main-container"
-        // onMouseMove={handleMouseMove}
-        // onMouseUp={handleMouseUp}
-        >
+        <div className="main-container" >
             <AppHeader />
             <UserMsg />
             <Provider store={store}>
@@ -41,39 +51,21 @@ export function RootCmp() {
                     <div className="left-side-toolbar">
                         {/* //  style={{ width: `${toolbarWidth}px` }}
                     //  onMouseDown={handleMouseDown}> */}
-                        <LeftSideToolbar />
+                        <LeftSideToolbar onTrackSelect={handleTrackUpdate} />
                     </div>
                     <main className="main-content"
                     // style={{ flexGrow: 1 }}
                     >
                         <Routes>
                             {/* <Route path="" element={<HomePage />} /> */}
-                            <Route path="/" element={<HomePage />} />
+                            <Route path="/" element={<HomePage onTrackSelect={handleTrackUpdate} />} />
                             <Route path='/login' element={<Login />} />
                             <Route path="/playlist/:id" element={
-                                <PlaylistDetails onTrackSelect={setCurrentTrack} />} />
-                            {/* <Route path="/" element={<UserHomePage />} /> */}
-                            {/* <Route path="about" element={<AboutUs />}>
-                        <Route path="team" element={<AboutTeam />} />
-                        <Route path="vision" element={<AboutVision />} />
-                    </Route> */}
-                            {/* <Route path="song" element={<CarIndex />? */}
-                            {/* <Route path="car" element={<CarIndex />} />
-                    <Route path="car/:carId" element={<CarDetails />} />
-                    <Route path="user/:id" element={<UserDetails />} />
-                    <Route path="review" element={<ReviewIndex />} /> */}
-                            {/* <Route path="chat" element={<ChatApp />} /> */}
-                            {/* <Route path="admin" element={<AdminIndex />} />
-                    <Route path="login" element={<LoginSignup />}>
-                        <Route index element={<Login />} />
-                        <Route path="signup" element={<Signup />} />
-                    </Route> */}
+                                <PlaylistDetails onTrackSelect={handleTrackUpdate} />} />
                         </Routes>
-
-
                     </main>
                 </div>
-                <AppFooter currentTrack={currentTrack}/>
+                <AppFooter currentTrack={currentTrack} playlistId={playlistId}/>
             </Provider>
         </div>
     )

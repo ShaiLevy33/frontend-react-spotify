@@ -32,6 +32,50 @@
         background-color: #ffffff37;
         border-radius: 0.5rem;
     }
+.playlist-img {
+    position: relative;
+}
+
+.play-button-container {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.play-button {
+    width: 10px;
+    height: 10px;
+    // background-color: #1db954;
+    border-radius: 1.5rem;
+    padding: 8px;
+    :hover {
+        width: 30px;
+    }
+}
+
+.playlist-preview:hover .play-button-container {
+    transform: translateY(-5px);
+    width: 30px;
+}
+
+.play-button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1db954;
+    border-radius: 50%;
+    width: 30px;
+    height: 1px;
+}
+.play-button{
+    width: 10px;
+    height: 10px;
+    background-color: #1db954;
+    border-radius: 1.5rem;
+    // transition: width 0.3s ease;
+}
+
  }
 //  .song-link{
 //      a{

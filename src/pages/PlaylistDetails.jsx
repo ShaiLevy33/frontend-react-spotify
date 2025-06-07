@@ -8,9 +8,10 @@ import { AppFooter } from '../cmps/AppFooter'
 import { FastAverageColor } from 'fast-average-color'
 import { AudioPlayer } from '../cmps/AudioPlayer'
 import { PopupEdit } from '../cmps/PopupEdit'
+import userImage from '../assets/img/profile-whiteBG.svg'
 
 
-function PlaylistDetails() {
+function PlaylistDetails({ onTrackSelect }) {
 
     const [playlist, setPlaylist] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
@@ -22,6 +23,11 @@ function PlaylistDetails() {
     const [currentTrack, setCurrentTrack] = useState(null);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+    const [tracks, setTracks] = useState([])
+
+const handleTrackUpdate = (newTrack) => {
+    setTracks(prevTracks => [...prevTracks, newTrack])
+}
     const openPopup = () => setIsPopupOpen(true);
     const closePopup = () => setIsPopupOpen(false);
     useEffect(() => {
@@ -29,7 +35,7 @@ function PlaylistDetails() {
 
         if (params.id)
             loadPlaylist()
-    }, [])
+    }, [params])
 
     useEffect(() => {
         if (playlist?.imgUrl && imgRef.current) {
@@ -45,7 +51,7 @@ function PlaylistDetails() {
             .then(setPlaylist)
             .catch(err => {
                 console.log('err:', err)
-                showErrorMsg('Cannot load playlist')
+                showErrorMsg('Cannot loa    d playlist')
                 navigate('/')
             })
     }
@@ -64,6 +70,10 @@ function PlaylistDetails() {
 
     const dispatch = useDispatch()
 
+        const handlePlaylistUpdate = (updatedPlaylist) => {
+        setPlaylist(updatedPlaylist)
+    }
+
     return (
         <section className="playlist-page">
             <div className='playlist-page-details'>
@@ -79,16 +89,18 @@ function PlaylistDetails() {
                         <div className='playlist-page-header-details-playlist'>
                             <h5>Playlist</h5>
                         </div>
-                        <button onClick={openPopup} className='playlist-page-header-details-edit-btn'>
+                        <button onClick={openPopup} disabled={playlist?.name === 'Liked Songs'}
+                         className='playlist-page-header-details-edit-btn'>
                             <h1>{playlist?.name}</h1>
                         </button>
-                        <PopupEdit isOpen={isPopupOpen} onClose={closePopup} playlist={playlist}>
+                        <PopupEdit isOpen={isPopupOpen} onClose={closePopup} playlist={playlist} onUpdate={handlePlaylistUpdate}>
 
                             {/* Add more content as needed */}
                         </PopupEdit>
                         <h5>{playlist?.description}</h5>
                         <div className='playlist-header-details'>
-                            <img src='https://cdn-icons-png.flaticon.com/512/1077/1077012.png' alt="" />
+                           {/* <img src='https://cdn-icons-png.flaticon.com/512/1077/1077012.png' alt="" /> */}
+                            <img src = {userImage}  alt="" />
 
                             <h5>userName</h5>
                             <span> • </span>
@@ -98,8 +110,10 @@ function PlaylistDetails() {
 
                 </div>
                 <div className='playlist-page-SongList'>
-                    {playlist && <PlaylistTrackList tracks={playlist.tracks} onTrackSelect={setCurrentTrack} />}
-                    <AppFooter currentTrack={currentTrack} />
+                    {playlist && <PlaylistTrackList tracks={playlist.tracks} onTrackSelect={onTrackSelect} 
+                    // playlist={playlist} 
+                    />}
+                    {/* <AppFooter currentTrack={currentTrack} /> */}
                 </div>
                 {/* </div> */}
                 {/* <h4>Trending songs</h4>

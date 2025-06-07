@@ -33,9 +33,17 @@ function playlistReducer(state = initialState, action) {
             newState = { ...state, playlists: [...state.playlists, action.playlist] }
             break
         case UPDATE_PLAYLIST:
-            playlists = state.playlists.map(playlist => (playlist._id === action.playlist._id) ? action.playlist : playlist)
-            newState = { ...state, playlists }
-            break
+            // playlists = state.playlists.map(playlist => (playlist._id === action.playlist._id) ? action.playlist : playlist)
+            // newState = { ...state, playlists }
+            // break
+                        return {
+                ...state,
+                playlists: state.playlists.map(playlist => 
+                    playlist._id.$oid === action.playlist._id.$oid ? 
+                    action.playlist : 
+                    playlist
+                )
+            }
         case ADD_PLAYLIST_MSG:
             newState = { ...state, playlist: { ...state.playlist, msgs: [...state.playlist.msgs || [], action.msg] } }
             break

@@ -1,53 +1,82 @@
-import { RiMusic2Line } from "react-icons/ri";
-import { RxPencil1 } from "react-icons/rx";
-import { useState, useRef, useEffect } from "react";
+import { RiMusic2Line } from "react-icons/ri"
+import { RxPencil1 } from "react-icons/rx"
+import { useState, useRef, useEffect } from "react"
 import { useParams } from 'react-router-dom'
-import { playlistService } from "../services/playlist.service"; 
+import { playlistService } from "../services/playlist.service"
 import { updatePlaylist } from "../store/actions/playlist.actions.js"
-import { useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { uploadService } from "../services/upload.service.js"
 
-export function PopupEdit({ isOpen, onClose }) {
-    const [playlist, setPlaylist] = useState(null)
+export function PopupEdit({ isOpen, onClose ,playlist, onUpdate }) {
+    // const [playlist, setPlaylist] = useState(null)
+    // const [playlistToEdit, setPlaylistToEdit] = useState(null)
     const [isBtnHovered, setIsBtnHovered] = useState(false)
-    const [previewImg, setPreviewImg] = useState(null)
+    // const [previewImg, setPreviewImg] = useState(null)
     const fileInputRef = useRef(null)
     // const [inputPlaylist, setInputPlaylist] = useState(playlist)
     const params = useParams()
 
 
     // const [playlistToEdit, setPlaylistToEdit] = useState(playlist);
-    const [PlaylistToEdit, setPlaylistToEdit] = useState(playlistService.getEmptyPlaylist(''))
+    const [PlaylistToEdit, setPlaylistToEdit] = useState(playlistService.getEmptyPlaylist())
     // const [playlistId] = useState(playlist._id.$oid)
     const dispatch = useDispatch()
-    
-//     useEffect(() => {
-//   setInputPlaylist(playlist)
-// }, [playlist]);
+
+    //     useEffect(() => {
+    //   setInputPlaylist(playlist)
+    // }, [playlist]);
     useEffect(() => {
         console.log('params:', params);
 
         if (params.id)
             loadPlaylist()
-    }, [])
+    }, [params.id])
 
- const handleChange = (e) => {
-//   const { name, value } = event.target;
-//   setInputPlaylist(prev => ({
-//     ...prev,
-//     [name]: value
-//   }));
-    const { name, value } = e.target;
-    setPlaylistToEdit(prevData => ({ ...prevData, [name]: value }))
-};
+    function handleChange({ target }) {
+        //   const { name, value } = event.target;
+        //   setInputPlaylist(prev => ({
+        //     ...prev,
+        //     [name]: value
+        //   }));
+        let targetName = target.name
+        if (targetName === '') {
+            targetName = 'imgUrl'
+        }
+        const field = targetName
+        let value = target.value
+
+        switch (target.type) {
+            case 'number':
+            case 'range':
+                value = +value || ''
+                break
+
+            case 'checkbox':
+                value = target.checked
+                break
+            case 'file':
+                value = uploadImg(target.value)
+                break
+
+            default:
+                break
+        }
+        setPlaylistToEdit(prevData => ({ ...prevData, [field]: value }))
+    };
     function loadPlaylist() {
         playlistService.get(params.id)
-            .then(setPlaylist)
+            .then(setPlaylistToEdit)
             .catch(err => {
                 console.log('err:', err)
                 showErrorMsg('Cannot load playlist')
                 navigate('/')
             })
     }
+    useEffect(() => {
+         if (playlist) {
+        setPlaylistToEdit(playlist)
+         }
+    }, [playlist])
 
     if (!isOpen) return null;
 
@@ -57,11 +86,22 @@ export function PopupEdit({ isOpen, onClose }) {
         }
     };
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
+    async function uploadImg(file) {
+        try {
+            const imageUrl = await uploadService.uploadImg(file)
+            return imageUrl
+        } catch (err) {
+            console.error('Error uploading image:', err)
+            // Optionally: handle error, e.g., show a message to the user
+        }
+    }
+    const handleFileChange = async (e) => {
+        e.preventDefault()
+        const file = e;
         if (file) {
-            const imageUrl = URL.createObjectURL(file)
-            setPreviewImg(imageUrl);
+            const imageUrl = await uploadImg(file)
+            const field = e.target.name || 'imgUrl'
+            setPlaylistToEdit(prevData => ({ ...prevData, [field]: imageUrl.url }))
         }
         // Optionally: handle upload logic here
         console.log('Selected file:', file);
@@ -75,14 +115,20 @@ export function PopupEdit({ isOpen, onClose }) {
     function handleSave() {
         const updatedPlaylist = {
             ...playlist,
-            // _id.$oid: playlistId,
-            imgUrl: previewImg || playlist.imgUrl,
-            name: playlist?.name,
-            description: playlist?.description
+            ...PlaylistToEdit,
+            imgUrl: PlaylistToEdit.imgUrl,
+            name: PlaylistToEdit?.name,
+            description: PlaylistToEdit?.description
         };
-        updatePlaylist(updatedPlaylist, playlist._id.$oid)
+        updatePlaylist(updatedPlaylist, updatedPlaylist._id.$oid)
             .then(() => {
-                onClose();
+                            dispatch({ 
+                type: 'UPDATE_PLAYLIST', 
+                playlist: updatedPlaylist 
+            })
+                   onUpdate(updatedPlaylist)
+                onClose()
+                // window.location.reload()
                 // Optionally: show success message or refresh data
             })
             .catch(err => {
@@ -90,6 +136,8 @@ export function PopupEdit({ isOpen, onClose }) {
                 // Optionally: show error message
             });
     }
+
+    const { name, description, imgUrl } = PlaylistToEdit
 
     return (
         <div className="popup-overlay">
@@ -111,15 +159,21 @@ export function PopupEdit({ isOpen, onClose }) {
                         >
                             {isBtnHovered ? (
                                 <RxPencil1 />
-                            ) : previewImg ? (
-                                <img 
-                                    src={previewImg}
+                            ) 
+                            // : previewImg ? (
+                            //     <img
+                            //         src={previewImg}
+                            //         alt="playlist"
+                            //         name="imgUrl"
+                            //         id="imgUrl"
+                            //     />
+                            // ) 
+                            : PlaylistToEdit.imgUrl ? (
+                                <img
+                                    src={imgUrl}
                                     alt="playlist"
-                                />
-                            ) : playlist.imgUrl ? (
-                                <img 
-                                    src={playlist.imgUrl}
-                                    alt="playlist"
+                                    name="imgUrl"
+                                    id="imgUrl2"
                                 />
                             ) : (
                                 <RiMusic2Line />
@@ -130,18 +184,19 @@ export function PopupEdit({ isOpen, onClose }) {
                             type="file"
                             ref={fileInputRef}
                             style={{ display: "none" }}
-                            accept="image/*"
+                            accept="img/*"
                             onChange={handleFileChange}
                         />
                     </div>
                     <div className="popup-edit-playlist-details">
-                        {playlist && (
+                        {PlaylistToEdit && (
                             <>
                                 <div className="form_input_container">
                                     <input
                                         id="name"
+                                        name="name"
                                         type="text"
-                                        value={playlist?.name || ""}
+                                        value={name}
                                         onChange={handleChange}
                                         className="form_input"
                                         placeholder="Enter playlist name"
@@ -153,9 +208,10 @@ export function PopupEdit({ isOpen, onClose }) {
                                 <div className="form_input_container">
                                     <textarea
                                         id="description"
-                                        value={playlist?.description || ""}
+                                        name="description"
+                                        value={description}
                                         onChange={handleChange}
-                                        className="form_input"
+                                        className="form_textarea"
                                         placeholder="Enter playlist description"
                                         rows="4"
                                     ></textarea>

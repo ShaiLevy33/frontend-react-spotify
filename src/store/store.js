@@ -1,6 +1,6 @@
 import { legacy_createStore as createStore, combineReducers } from 'redux' 
 // *for more then one reducer
-
+import { applyMiddleware, compose } from 'redux'
 // import { configureStore } from '@reduxjs/toolkit'
 // import { createStore, applyMiddleware, compose}
 // from 'redux'

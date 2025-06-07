@@ -1,5 +1,6 @@
 .main-container main {
-    min-height: calc(100vh - 7rem);
+    min-height: calc(100vh - 10rem);
+    height: 400px;
     overflow: hidden; // Quick fix for JSONs in <pre>
     flex-grow: 1; // Take up the remaining space
     padding: 1rem;
@@ -12,8 +13,9 @@
 }
 .content-layout {
     display: flex;
-    min-height: calc(100vh - 7rem); // Adjust height based on header/footer
+    // min-height: calc(100vh - 10rem); // Adjust height based on header/footer
     // background-color: black;
+    height: 550px
 }
 // .main-container {
 //     height: 100vh;
@@ -46,6 +48,7 @@
     padding: 1rem;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
+    height: 80%;
   h4{
 
     color: white;
