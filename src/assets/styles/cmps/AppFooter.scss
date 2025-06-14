@@ -1,75 +1,81 @@
-.app-footer{
+.app-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     // position: fixed;
 
-    min-height: 3.5rem;
+    max-height: 6rem;
 
     padding: rem(10px) 1rem;
     background-color: black;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex
-;
+    ;
     min-width: 620px;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    height: auto;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-     a {
+
+    a {
         color: white;
         font-size: small;
-        font-family: sans-serif; 
+        font-family: sans-serif;
     }
 
     p {
         margin: 0;
     }
-    
+
     span {
         font-size: .8em;
-        
+
         &.local-services {
             color: $clr1;
         }
-        
+
         &.remote-services {
             color: $clr5;
         }
     }
 }
-.middle-bottom-audio-player{
+
+.middle-bottom-audio-player {
 
     // clear: left;
 }
-.left-bottom-picture-artist{
+
+.artist-info {
+    align-items: center;
+    margin-left: 10px;
+    margin-top: 7px;
+    span{
+        font-size: 0.9rem;
+        color: white;
+    }
+    a{
+     font-size: small;   
+    }
+}
+
+.left-bottom-picture-artist {
 
     // float: left;
     display: flex;
     position: absolute;
-    left: 10px;
+    left: 20px;
+
     img {
-        width: 3rem;
-        height: 3rem;
+        width: 4rem;
+        height: 4rem;
         border-radius: 10%;
         object-fit: cover;
     }
-    
+
     .artist-name {
         font-size: 1.2rem;
         color: $clr1;
     }
 }
-.left-bottom-picture-artist-text{
+
+.left-bottom-picture-artist-text {
     display: inline-block;
     position: absolute;
-    left: 50px;
+    left: 10px;
     top: 3rem;
     font-size: 1.2rem;
     color: $clr1;

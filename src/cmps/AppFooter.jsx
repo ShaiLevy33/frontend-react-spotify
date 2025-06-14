@@ -17,42 +17,17 @@ export function AppFooter({ currentTrack, playlistId }) {
 	const songName = currentTrack?.title || 'Unknown Song'
 	const songQuery = encodeURIComponent(songName)
 
-	// const loadPlaylistData = async (id) => {
-	// 	try {
-	// 		const loadedPlaylist = await playlistService.get(id)
-	// 		dispatch({ type: 'SET_PLAYLIST', playlist: loadedPlaylist })
-	// 		setPlaylist(loadedPlaylist)
-	// 		setIsPlaylistLoaded(true)
-	// 	} catch (err) {
-	// 		console.error('Error loading playlist:', err)
-	// 	}
-	// }
-
-	// useEffect(() => {
-	// 	if (playlistId) {
-	// 		loadPlaylistData(playlistId)
-	// 	}
-	// }, [playlistId])
 
 	useEffect(() => {
 		const fetchData = async () => {
 			if (!currentTrack?.title)
 				//  || !playlist) 
-				 return
+				return
 			try {
-				// if (playlist.trackIdYoutube) {
-				// 	setAudio(playlist.trackIdYoutube)
-				// 	return
-				// }
-				// }
 				const response = await axios.get(
 					`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${songQuery}&key=${API_KEY}`
 				)
-
 				setAudio(response.data.items[0].id.videoId)
-				// handleSave(playlist, currentTrack, response.data.items[0].id.videoId)
-
-				// response.data.items[0].id.videoId
 			} catch (error) {
 				console.error('Error fetching data:', error)
 			}
@@ -74,18 +49,14 @@ export function AppFooter({ currentTrack, playlistId }) {
 			...playlist,
 			...PlaylistToEdit,
 			tracks: playlist.tracks
-		};
+		}
 		updatePlaylist(updatedPlaylist, updatedPlaylist._id.$oid)
 			.then(() => {
-				console.log('Playlist updated successfully');
-				// onClose();
-				// window.location.reload()
-				// Optionally: show success message or refresh data
+				console.log('Playlist updated successfully')
 			})
 			.catch(err => {
 				console.error('Error updating playlist:', err)
-				// Optionally: show error message
-			});
+			})
 	}
 	return (
 		<footer className="app-footer full">
@@ -98,29 +69,28 @@ export function AppFooter({ currentTrack, playlistId }) {
 				{/* <div className='left-bottom-picture-artist-text'> */}
 				<div className="artist-info">
 					<div className="song-link">
-						{/* <Link>Artist Name</Link> */}
+						<span>{currentTrack?.title ? currentTrack.title : ''}</span>
 					</div>
 					<div className='artists-link'>
 						{currentTrack?.artists?.map((artist, idx) => (
-							<span key={artist}>
-								<Link ></Link>
+							<span key={artist.spotifyId || idx}>
+								<Link to={`/artist/${artist.spotifyId}`}>
+									{artist.name}
+								</Link>
 								{idx < currentTrack.artists.length - 1 && ', '}
 							</span>
 						))}
-						{/* <Link>Artist Name</Link> */}
 					</div>
+					
 				</div>
 				{/* <Link>Song Name</Link> */}
 				{/* </div> */}
 			</div>
-			<div className='middle-bottom-audio-player'>
+			<div className='middle-right-bottom-audio-player'>
 				<AudioPlayer src={audio ? audio : undefined}></AudioPlayer>
 			</div>
-			<div className='right-bottom-volume'></div>
+			{/* <div className='right-bottom-volume'></div> */}
 
-			{/* {import.meta.env.VITE_LOCAL ? 
-                <span className="local-services">Local Services</span> : 
-                <span className="remote-services">Remote Services</span>} */}
 		</footer>
 	)
 }

@@ -13,6 +13,16 @@
         color:#B3B3B3;
         font-size: 13px;
     }
+    .add-track{
+        h1{
+            color: white;
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+        }
+    }
+    .track-index-img{
+        color: white;
+    }
     .track-row{
         display:grid;
         grid-template-columns: 2fr 1fr 1fr 1fr 1fr;

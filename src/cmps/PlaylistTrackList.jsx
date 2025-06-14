@@ -16,9 +16,9 @@ const LIKED_PLAYLIST_ID = '6550b4b07618f64848894c85'
 
 function PlaylistTrackList({ tracks, onTrackSelect }) {
     const dispatch = useDispatch()
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState('')
     const songs = useSelector(storeState => {
-        console.log('storeState:', storeState.songModule.songs);
+        console.log('storeState:', storeState.songModule.songs)
         return storeState.songModule.songs
     })
 
@@ -30,10 +30,11 @@ function PlaylistTrackList({ tracks, onTrackSelect }) {
     const [playlist, setPlaylist] = useState(null)
     const filterBy = useSelector(storeState => storeState.songModule.filterBy)
     const params = useParams()
+    const [hoveredSearchIdx, setHoveredSearchIdx] = useState(null)
 
-    const [hoveredIdx, setHoveredIdx] = useState(null);
-    const [currentTrackUrl, setCurrentTrackUrl] = useState(null);
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [hoveredIdx, setHoveredIdx] = useState(null)
+    const [currentTrackUrl, setCurrentTrackUrl] = useState(null)
+    const [isPlaying, setIsPlaying] = useState(false)
     const formatDate = (dateString) => {
         const date = new Date(dateString)
         return date.toLocaleDateString('en-US', {
@@ -44,7 +45,7 @@ function PlaylistTrackList({ tracks, onTrackSelect }) {
     }
 
     useEffect(() => {
-        console.log('params:', params);
+        console.log('params:', params)
 
         if (params.id)
             loadPlaylist()
@@ -69,28 +70,32 @@ function PlaylistTrackList({ tracks, onTrackSelect }) {
             })
     }, [filterBy])
 
-    function addForPlaylist(song) {
-        if (!playlist || !song) return
+function addForPlaylist(e, song) {
+    e.stopPropagation()
 
-        song.addedAt = new Date().toISOString()
+    if (!playlist || !song) return
 
-        const updatedPlaylist = {
-            ...playlist,
-            tracks: [...playlist.tracks, song]
-        }
+    song.addedAt = new Date().toISOString()
 
-        playlistService.save(updatedPlaylist)
-            .then(() => {
-                setPlaylist(updatedPlaylist)
-                onTrackSelect(song)
-                console.log('Playlist updated successfully')
-                showSuccessMsg('song added to playlist' + ' ' + playlist.title)
-            })
-            .catch(err => {
-                console.error('Error updating playlist:', err)
-                showErrorMsg('Cannot update playlist')
-            })
+    // Create updated playlist with new song
+    const updatedPlaylist = {
+        ...playlist,
+        tracks: [...playlist.tracks, song]
     }
+
+    // Update UI immediately
+    setPlaylist(updatedPlaylist)
+    showSuccessMsg('Song added to playlist ' + playlist.name)
+
+    // Save to backend
+    playlistService.save(updatedPlaylist)
+        .catch(err => {
+            // Rollback on error
+            setPlaylist(playlist)
+            console.error('Error updating playlist:', err)
+            showErrorMsg('Cannot update playlist')
+        })
+}
     const handlePlayPause = () => {
         if (tracks && tracks.length > 0) {
             setIsPlaying(!isPlaying)
@@ -99,20 +104,16 @@ function PlaylistTrackList({ tracks, onTrackSelect }) {
     }
     // if (!tracks || !tracks.length) return <div>No tracks found</div>
     const handleAddToLikedSongs = async (e, track) => {
-        e.stopPropagation() 
-
+        e.stopPropagation()
         try {
             const likedPlaylist = await playlistService.get(LIKED_PLAYLIST_ID)
-            
             const updatedPlaylist = {
                 ...likedPlaylist,
                 tracks: [track, ...likedPlaylist.tracks]
             }
-
             await playlistService.save(updatedPlaylist)
-            // Dispatch action to update Redux store
             dispatch({ type: 'UPDATE_PLAYLIST', playlist: updatedPlaylist })
-            showSuccessMsg('Added to Liked Songs')
+            showSuccessMsg('Added to Liked Songs') // This should now work
         } catch (err) {
             console.error('Error adding to Liked Songs:', err)
             showErrorMsg('Cannot add to Liked Songs')
@@ -140,24 +141,23 @@ function PlaylistTrackList({ tracks, onTrackSelect }) {
                 </div>
                 <span>___________________________________________________________________________________________________________________________________________________________________</span>
                 {tracks.map((track, idx) => (
-                    // <div key={track.id} className="track-row" onMouseEnter={(e) => e.currentTarget.classList.add('hover')}
-                    //     onMouseLeave={(e) => e.currentTarget.classList.remove('hover')}/>
                     <div className='track-row'
                         key={track.id}
-                        onClick={() => onTrackSelect(track, true, playlist._id.$oid)} onMouseEnter={e => {
-                            setHoveredIdx(idx);
-                            e.currentTarget.classList.add('hover');
+                        onClick={() => onTrackSelect(track, true, playlist._id.$oid)}
+                        onMouseEnter={e => {
+                            setHoveredIdx(idx)
+                            e.currentTarget.classList.add('hover')
                         }}
                         onMouseLeave={e => {
-                            setHoveredIdx(null);
-                            e.currentTarget.classList.remove('hover');
+                            setHoveredIdx(null)
+                            e.currentTarget.classList.remove('hover')
                         }}>
                         <div className="track-title-container">
                             <div className="track-index-img">
                                 {hoveredIdx === idx ? (
                                     <FaPlay className="track-play-icon" />
                                 ) : (
-                                    idx + 1
+                                    idx + 1  // This will show correct index starting from 1
                                 )}
                                 {track.imgUrl && track.imgUrl.length > 0 && (
                                     <img src={track.imgUrl[0].url} alt={track.title} />
@@ -206,77 +206,78 @@ function PlaylistTrackList({ tracks, onTrackSelect }) {
                     </div>
 
 
-                    // <div>
-                    //     {track.title}
-                    // </div>
                 ))}
                 <span>___________________________________________________________________________________________________________________________________________________________________</span>
-                <div className='add-track'>
-                    <h1>Let's find something for your playlist</h1>
-                    <input type="search" placeholder="Search for tracks" value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)} />
-                    {/* Add search results table */}
-                    {searchTerm && (
-                        <table className="search-results-table">
-                            <thead>
-                                <tr>
+                {playlist?._id.$oid !== LIKED_PLAYLIST_ID && (
+                    <div className='add-track'>
+                        <h1>Let's find something for your playlist</h1>
+                        <input type="search" placeholder="Search for tracks" value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)} />
+                        {/* Add search results table */}
+                        {searchTerm && (
+                            <table className="search-results-table">
+                                <thead>
+                                    <tr>
 
-                                    {/* <th>Title</th>
-                    <th>Artist</th>
-                    <th>Duration</th> */}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredSongs?.map((song, idx) => (
-                                    <tr
-                                        key={song.id}
-                                        onClick={() => onTrackSelect(song, true, playlist._id.$oid)}
-                                        className="search-result-row"
-                                    >
-                                        <td>
-                                            <div className="track-title-container">
-                                                <div className="track-index-img">
-                                                    {hoveredIdx === idx ? (
-                                                        <FaPlay className="track-play-icon" />
-                                                    ) : (
-                                                        idx + 1
-                                                    )}
-                                                    {song.imgUrl && song.imgUrl.length > 0 && (
-                                                        <img src={song.imgUrl[0].url} alt={song.title} />
-                                                    )}
-                                                </div>
-                                                <div className="track-title">
-                                                    <span>{song.title}</span>
-                                                    <span className="track-artists">
-                                                        {song.artists && song.artists.map((artist, index) => (
-                                                            <span key={artist.spotifyId}>
-                                                                <span className='artist-playlistTrack'>{artist.name}</span>
-                                                                {index < song.artists.length - 1 && ', '}
-                                                            </span>
-                                                        ))}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            {song.artists?.map((artist, index) => (
-                                                <span key={artist.spotifyId}>
-                                                    {artist.name}
-                                                    {index < song.artists.length - 1 && ', '}
-                                                </span>
-                                            ))}
-                                        </td>
-                                        <td>
-                                            <button className='button-add-search-table' onClick={() => addForPlaylist(song)}>Add</button>
-                                        </td>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    {filteredSongs?.map((song, idx) => (
+                                        <tr
+                                            key={song.id}
+                                            onClick={() => onTrackSelect(song, true, playlist._id.$oid)}
+                                            className="search-result-row"
+                                        >
+                                            <td>
+                                                <div className="track-title-container">
+                                                    <div className="track-index-img">
+                                                        {hoveredIdx === idx ? (
+                                                            <FaPlay className="track-play-icon" />
+                                                        ) : (
+                                                            idx + 1
+                                                        )}
+                                                        {song.imgUrl && song.imgUrl.length > 0 && (
+                                                            <img src={song.imgUrl[0].url} alt={song.title} />
+                                                        )}
+                                                    </div>
+                                                    <div className="track-title">
+                                                        <span>{song.title}</span>
+                                                        <span className="track-artists">
+                                                            {song.artists && song.artists.map((artist, index) => (
+                                                                <span key={artist.spotifyId}>
+                                                                    <span className='artist-playlistTrack'>{artist.name}</span>
+                                                                    {index < song.artists.length - 1 && ', '}
+                                                                </span>
+                                                            ))}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {song.artists?.map((artist, index) => (
+                                                    <span key={artist.spotifyId}>
+                                                        {artist.name}
+                                                        {index < song.artists.length - 1 && ', '}
+                                                    </span>
+                                                ))}
+                                            </td>
+                                            <td>
+                                                <button
+                                                    className='button-add-search-table'
+                                                    onClick={(e) => addForPlaylist(e, song)}  // Pass the event
+                                                >
+                                                    Add
+                                                </button>
+                                            </td>
+                                        </tr>
 
-                                ))}
+                                    ))}
 
-                            </tbody>
-                        </table>
-                    )}
-                </div>
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
+                )}
 
             </div>
         </div>

@@ -20,18 +20,17 @@ function PlaylistDetails({ onTrackSelect }) {
     const navigate = useNavigate()
     const imgRef = useRef(null)
     const [currentTrackUrl, setCurrentTrackUrl] = useState(null)
-    const [currentTrack, setCurrentTrack] = useState(null);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-
+    const [currentTrack, setCurrentTrack] = useState(null)
+    const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [tracks, setTracks] = useState([])
 
 const handleTrackUpdate = (newTrack) => {
     setTracks(prevTracks => [...prevTracks, newTrack])
 }
-    const openPopup = () => setIsPopupOpen(true);
-    const closePopup = () => setIsPopupOpen(false);
+    const openPopup = () => setIsPopupOpen(true)
+    const closePopup = () => setIsPopupOpen(false)
     useEffect(() => {
-        console.log('params:', params);
+        console.log('params:', params)
 
         if (params.id)
             loadPlaylist()

@@ -73,14 +73,32 @@
         align-content: center;
     }
 
-    .play-button-overlay {
+ .play-button-overlay {
         position: absolute;
-        right: 40px;
-        // left: 10px;
-        // top: 50%;
-        // transform: translateY(-50%);
-        display: flex;
-        align-items: end;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        opacity: 0;
+        transition: all 0.3s ease;
+
+        .play-button {
+            width: 40px;
+            height: 40px;
+            background-color: #1db954;
+            // border-radius: 50%;
+            // padding: 1px;
+            // cursor: pointer;
+            bo
+            
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &:hover .play-button-overlay {
+        opacity: 1;
     }
 
     .play-button {
@@ -88,7 +106,7 @@
         height: 40px;
         opacity: 1;
         transition: opacity 0.3s ease;
-        border-radius: 1.5rem;
+        border-radius: 2rem;
     }
 
     .home-page-favorite-playlists-item:hover .play-button {

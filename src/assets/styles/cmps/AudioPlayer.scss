@@ -1,7 +1,17 @@
 .audioPlayer {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+
+    // padding: 1rem;
+    .audio-player-container {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin-left: 450px;
+        margin-bottom: 30px;
+    }
+
     // gap: 1rem; /* Adds spacing between elements */
     // padding: 1rem;
     // background-color: #f9f9f9;
@@ -10,19 +20,7 @@
     // width: 300px; 
 }
 
-    .forwardBackward{
-        background: none;
-        border: none;
-        display: flex;
-        align-items: center;
-        font-family: monospace;
-        font-size: 16px;
-        cursor: pointer;
-
-}
-.forwardBackward:hover{
-}
-.playPause{
+.forwardBackward {
     background: none;
     border: none;
     display: flex;
@@ -30,10 +28,37 @@
     font-family: monospace;
     font-size: 16px;
     cursor: pointer;
+    color: #b3b3b3;
+
+}
+
+.shuffle {
+
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-family: monospace;
+    font-size: 16px;
+    cursor: pointer;
+    color: #b3b3b3;
+}
+
+.forwardBackward:hover {}
+
+.playPause {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-family: monospace;
+    font-size: 30px;
+    cursor: pointer;
     justify-content: center;
 
 }
-.current-time{
+
+.current-time {
     font-size: 10px;
     display: flex;
     align-items: center;
@@ -42,20 +67,82 @@
     color: #b3b3b3;
 
 }
-.duration{
+
+.progress-slider {
+    --seek-before-width: 0%;
+    appearance: none;
+    // background: transparent;
+    // width: 100%;
+    // height: 4px;
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+    -webkit-appearance: none;
+    width: 500px;
+    height: 7px;
+    margin-right: 10px;
+    border-radius: 6px;
+    outline: 0;
+    background: grey;
+
+    &::-webkit-slider-runnable-track {
+        background: linear-gradient(to right,
+                #ffffff var(--seek-before-width),
+                transparent var(--seek-before-width));
+        border-radius: 2px;
+        height: 9px;
+        width: 100%;
+    }
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        background: #ffffff;
+        margin-top: -4px;
+        position: relative;
+        z-index: 3;
+        cursor: pointer;
+        border: none;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    &:hover {
+        &::-webkit-slider-thumb {
+            opacity: 1;
+        }
+
+        &::-webkit-slider-runnable-track {
+            height: 6px;
+        }
+    }
+
+    &:active {
+        &::-webkit-slider-thumb {
+            transform: scale(1.2);
+        }
+    }
+}
+
+.duration {
     font-family: monospace;
     font-size: 16px;
 
 }
+
 .controls {
     display: flex;
     justify-content: center;
-    gap: 1rem; /* Adds spacing between buttons */
+    gap: 1rem;
+
 }
+
 // input[type=range]{
 
 // }
-.progressBar{
+.progressBar {
     --bar-bg: green;
     --seek-before-width: 0;
     --seek-before-color: orange;
@@ -68,34 +155,124 @@
     height: 11px;
     outline: none;
 
+    input[type="range"] {
+        -webkit-appearance: none;
+        width: 450px;
+        height: 10px;
+        margin-right: 10px;
+        border-radius: 6px;
+        outline: 0;
+        background: grey;
+    }
+
     // appearance: none;
 
 }
-.progressBar::before{
+
+.progressBar::before {
     color: #000;
     background: green;
 }
-.progressBar::-webkit-slider-thumb{
+
+.progressBar::-webkit-slider-thumb {
     color: #000;
     background: green;
 }
-input[type="range"] {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 10px;
-    margin-right: 10px;
-    border-radius: 6px;
-    outline: 0;
-    background: grey;
-}
+
+// input[type="range"] {
+//     -webkit-appearance: none;
+//     width: 450px;
+//     height: 10px;
+//     margin-right: 10px;
+//     border-radius: 6px;
+//     outline: 0;
+//     background: grey;
+// }
 
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    height: 18px;
-    width: 18px;
+    height: 13px;
+    width: 13px;
     border-radius: 3px;
     background: white;
     border-radius: 50%;
     border: 0;
     cursor: pointer;
-  }
+}
+
+.volume-slider {
+    --volume-before-width: 0%;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 4px;
+    border-radius: 2px;
+    background: #4f4f4f;
+    position: relative;
+    cursor: pointer;
+
+    &::-webkit-slider-runnable-track {
+        background: linear-gradient(
+            to right,
+            #ffffff var(--volume-before-width),
+            #4f4f4f var(--volume-before-width)
+        );
+        height: 4px;
+        border-radius: 2px;
+    }
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #ffffff;
+        cursor: pointer;
+        margin-top: -4px;
+        position: relative;
+        z-index: 2;
+    }
+
+    &:hover {
+        &::-webkit-slider-runnable-track {
+            background: linear-gradient(
+                to right,
+                #ffffff var(--volume-before-width),
+                #4f4f4f var(--volume-before-width)
+            );
+        }
+    }
+}
+
+.volume-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 250px;
+    margin-top: 40px;
+    .mute-btn {
+        background: none;
+        border: none;
+        color: #b3b3b3;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        height: 16px; // Match height of volume slider
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        &:hover {
+            color: white;
+        }
+    }
+
+    .volume-slider {
+        width: 100px;
+        height: 4px; // Base height of the slider track
+    }
+}

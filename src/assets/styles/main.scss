@@ -17,14 +17,13 @@
 
 
 @import "pages/HomePage";
-@import "pages/UserDetails";
 
 @import "pages/LoginSignup";
 @import "pages/PlaylistPage";
+@import "pages/FilterSongsPage";
 
 // Components
 @import "cmps/list";
-@import "cmps/preview";
 
 @import "cmps/AppHeader";
 @import "cmps/AppFooter";

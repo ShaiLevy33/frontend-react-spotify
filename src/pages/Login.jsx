@@ -60,13 +60,6 @@ export function Login() {
                     className="login-provider-icon"
                 />
                 Continue with Apple</button>
-            {/* <select
-                name="username"
-                value={credentials.username}
-                onChange={handleChange}>
-                <option value="">Select User</option>
-                {users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
-            </select> */}
 
             <span>____________________________________________________________</span>
             <div className="user-password-login">

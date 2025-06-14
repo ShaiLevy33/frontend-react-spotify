@@ -14,27 +14,31 @@ function PlaylistPreview({ playlist, onTrackSelect }) {
         }
     }
 
-    return (
-        <div className="playlist-preview">
-            <Link 
-                to={`/playlist/${playlist._id.$oid}`}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-            >
-                <div className="playlist-img">
-                    <img src={playlist.imgUrl} alt="" />
-                    {isHovered && (
-                        <div className="play-button-container">
-                            <img src={playImg} alt="play" className="play-button" 
-                            onClick={handlePlayClick}/>
-                        </div>
-                    )}
-                </div>
-                <div className="playlist-name">
-                    <span>{playlist.name}</span>
-                </div>
-            </Link>
-        </div>
-    )
+return (
+    <div className="playlist-preview">
+        <Link 
+            to={`/playlist/${playlist._id.$oid}`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            <div className="playlist-img">
+                <img src={playlist.imgUrl} alt="" />
+                {isHovered && (
+                    <div className="play-button-container">
+                        <img 
+                            src={playImg} 
+                            alt="play" 
+                            className="play-button"
+                            onClick={() => onTrackSelect(track, true, playlist._id.$oid)} // Changed to use handlePlayClick
+                        />
+                    </div>
+                )}
+            </div>
+            <div className="playlist-name">
+                <span>{playlist.name}</span>
+            </div>
+        </Link>
+    </div>
+)
 }
 export  { PlaylistPreview }

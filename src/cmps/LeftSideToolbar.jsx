@@ -3,16 +3,15 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { loadPlaylist } from '../store/actions/playlist.actions.js'
-import { addPlaylist, removePlaylist } from '../store/actions/playlist.actions.js';
+import { addPlaylist, removePlaylist } from '../store/actions/playlist.actions.js'
 import { Link } from 'react-router-dom'
 import { FaPlay, FaPause } from 'react-icons/fa'
 
 function LeftSideToolbar({ onTrackSelect }) {
-    // const playlists = useSelector(storeState => storeState.playlistModule.playlists)
     const [hoveredId, setHoveredId] = useState(null)
     const [playingId, setPlayingId] = useState(null)
     const playlists = useSelector(storeState => {
-        console.log('storeState:', storeState.playlistModule.playlists);
+        console.log('storeState:', storeState.playlistModule.playlists)
         return storeState.playlistModule.playlists
     })
     const navigate = useNavigate()
@@ -44,12 +43,12 @@ function LeftSideToolbar({ onTrackSelect }) {
             imgUrl: 'https://via.placeholder.com/150',
             tracks: []
         }
-        // let pId = '6550be38697bb160583da4a4';
-        // removePlaylist(pId);
+        // let pId = '6550be38697bb160583da4a4'
+        // removePlaylist(pId)
         addPlaylist(newPlaylist)
             .then(playlist => {
                 // Ensure _id is in the correct format
-                navigate(`/playlist/${playlist._id}`)
+                navigate(`/playlist/${playlist._id.$oid}`)
             })
             .catch(err => {
                 console.error('Error creating playlist:', err)
@@ -106,7 +105,7 @@ function LeftSideToolbar({ onTrackSelect }) {
                                     <span className={`playlist-name ${playingId === (playlist._id.$oid || playlist._id) ? 'playing' : ''}`}>
                                         {playlist.name}
                                     </span>
-                                    <span>
+                                    <span className='playlist-type'>
                                         Playlist • {playlist.name !== 'Liked Songs'
                                             ? 'User user'
                                             : `${playlist?.tracks.length} ${playlist?.tracks.length === 1 ? 'song' : 'songs'}`}

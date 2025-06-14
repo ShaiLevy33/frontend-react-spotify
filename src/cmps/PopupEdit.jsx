@@ -8,8 +8,7 @@ import { useDispatch } from 'react-redux'
 import { uploadService } from "../services/upload.service.js"
 
 export function PopupEdit({ isOpen, onClose ,playlist, onUpdate }) {
-    // const [playlist, setPlaylist] = useState(null)
-    // const [playlistToEdit, setPlaylistToEdit] = useState(null)
+
     const [isBtnHovered, setIsBtnHovered] = useState(false)
     // const [previewImg, setPreviewImg] = useState(null)
     const fileInputRef = useRef(null)
@@ -17,27 +16,19 @@ export function PopupEdit({ isOpen, onClose ,playlist, onUpdate }) {
     const params = useParams()
 
 
-    // const [playlistToEdit, setPlaylistToEdit] = useState(playlist);
+
     const [PlaylistToEdit, setPlaylistToEdit] = useState(playlistService.getEmptyPlaylist())
-    // const [playlistId] = useState(playlist._id.$oid)
     const dispatch = useDispatch()
 
-    //     useEffect(() => {
-    //   setInputPlaylist(playlist)
-    // }, [playlist]);
+
     useEffect(() => {
-        console.log('params:', params);
+        console.log('params:', params)
 
         if (params.id)
             loadPlaylist()
     }, [params.id])
 
     function handleChange({ target }) {
-        //   const { name, value } = event.target;
-        //   setInputPlaylist(prev => ({
-        //     ...prev,
-        //     [name]: value
-        //   }));
         let targetName = target.name
         if (targetName === '') {
             targetName = 'imgUrl'
@@ -62,7 +53,7 @@ export function PopupEdit({ isOpen, onClose ,playlist, onUpdate }) {
                 break
         }
         setPlaylistToEdit(prevData => ({ ...prevData, [field]: value }))
-    };
+    }
     function loadPlaylist() {
         playlistService.get(params.id)
             .then(setPlaylistToEdit)
@@ -78,13 +69,13 @@ export function PopupEdit({ isOpen, onClose ,playlist, onUpdate }) {
          }
     }, [playlist])
 
-    if (!isOpen) return null;
+    if (!isOpen) return null
 
     const handleButtonClick = () => {
         if (fileInputRef.current) {
             fileInputRef.current.click()
         }
-    };
+    }
 
     async function uploadImg(file) {
         try {
@@ -97,21 +88,16 @@ export function PopupEdit({ isOpen, onClose ,playlist, onUpdate }) {
     }
     const handleFileChange = async (e) => {
         e.preventDefault()
-        const file = e;
+        const file = e
         if (file) {
             const imageUrl = await uploadImg(file)
             const field = e.target.name || 'imgUrl'
             setPlaylistToEdit(prevData => ({ ...prevData, [field]: imageUrl.url }))
         }
         // Optionally: handle upload logic here
-        console.log('Selected file:', file);
+        console.log('Selected file:', file)
     }
 
-    //     function handleChange({ target }) {
-    //     let { value, type, name: field } = target
-    //     value = type === 'number' ? +value : value
-    //     setPlaylistToEdit(prev => ({ ...prev, [field]: value }));
-    // }
     function handleSave() {
         const updatedPlaylist = {
             ...playlist,
@@ -119,7 +105,7 @@ export function PopupEdit({ isOpen, onClose ,playlist, onUpdate }) {
             imgUrl: PlaylistToEdit.imgUrl,
             name: PlaylistToEdit?.name,
             description: PlaylistToEdit?.description
-        };
+        }
         updatePlaylist(updatedPlaylist, updatedPlaylist._id.$oid)
             .then(() => {
                             dispatch({ 
@@ -128,13 +114,12 @@ export function PopupEdit({ isOpen, onClose ,playlist, onUpdate }) {
             })
                    onUpdate(updatedPlaylist)
                 onClose()
-                // window.location.reload()
-                // Optionally: show success message or refresh data
+
             })
             .catch(err => {
                 console.error('Error updating playlist:', err)
-                // Optionally: show error message
-            });
+
+            })
     }
 
     const { name, description, imgUrl } = PlaylistToEdit
@@ -160,14 +145,7 @@ export function PopupEdit({ isOpen, onClose ,playlist, onUpdate }) {
                             {isBtnHovered ? (
                                 <RxPencil1 />
                             ) 
-                            // : previewImg ? (
-                            //     <img
-                            //         src={previewImg}
-                            //         alt="playlist"
-                            //         name="imgUrl"
-                            //         id="imgUrl"
-                            //     />
-                            // ) 
+       
                             : PlaylistToEdit.imgUrl ? (
                                 <img
                                     src={imgUrl}
@@ -230,7 +208,6 @@ export function PopupEdit({ isOpen, onClose ,playlist, onUpdate }) {
                     Please make sure you have the right to upload the image.</p>
             </div>
         </div>
-    );
+    )
 }
 
-// export {PopupEdit};

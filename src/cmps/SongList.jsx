@@ -2,7 +2,7 @@ import { SongPreview } from "./SongPreview.jsx"
 import { Link} from 'react-router-dom'
 
 function SongList({ songs }) {
-console.log('songs:', songs.slice(0, 5));
+console.log('songs:', songs.slice(0, 5))
 
     return (
         <ul className="song-list">

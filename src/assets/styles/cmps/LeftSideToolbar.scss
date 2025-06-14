@@ -1,6 +1,6 @@
 .left-side-toolbar {
     display: grid;
-    height: 80%;
+    height: 85%;
 
     .toolbar-header {
         display: flex;
@@ -16,12 +16,12 @@
             padding: 4px 12px;
             border-radius: 1.5rem;
             border: none;
-            background-color: #1f1f1f;
+            background-color: #292828;
             color: white;
             cursor: pointer;
-            width: 4rem;
+            width: 4.4rem;
             height: 2rem;
-            font-size: x-small;
+            font-size: small;
 
             &:hover {
                 color: white;
@@ -64,8 +64,8 @@
         }
 
         img {
-            width: 55px;
-            height: 55px;
+            width: 45px;
+            height: 45px;
         }
 
     }
@@ -79,8 +79,9 @@
         border-radius: 0.5rem;
 
         img {
-            width: 55px;
-            height: 55px;
+            width: 45px;
+            height: 45px;
+            border-radius: 5px;
         }
 
         &:hover {
@@ -99,6 +100,12 @@
 
     .playlist-item {
         display: flex;
+        height: 48px;
+    }
+    .playlist-type{
+        font-size: small;
+        color: #888;
+
     }
 
     .playlist-sidebar-description {

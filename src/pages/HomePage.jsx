@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import playImg from '../assets/img/play.png';
+import playImg from '../assets/img/play.png'
 import { SongList } from "../cmps/SongList"
 import { PlaylistList } from '../cmps/PlaylistList.jsx'
 import { songService } from "../services/song.service.js"
@@ -19,24 +19,17 @@ function HomePage({ onTrackSelect }) {
 
 
     const songs = useSelector(storeState => {
-        console.log('storeState:', storeState.songModule.songs);
+        console.log('storeState:', storeState.songModule.songs)
         return storeState.songModule.songs
     })
     console.log('songs:', songs)
     const filterBy = useSelector(storeState => storeState.songModule.filterBy)
 
     const playlists = useSelector(storeState => {
-        console.log('storeState:', storeState.playlistModule.playlists);
+        console.log('storeState:', storeState.playlistModule.playlists)
         return storeState.playlistModule.playlists
     })
-    // useEffect(() => {
-    //     if (playlists?.imgUrl && imgRef.current) {
-    //         const fac = new FastAverageColor()
-    //         fac.getColorAsync(imgRef.current)
-    //             .then(color => setAvgColor(color.hex))
-    //             .catch(() => setAvgColor('#222'))
-    //     }
-    // }, [playlists])
+
 
     const filterByP = useSelector(storeState => storeState.playlistModule.filterBy)
 
@@ -84,7 +77,7 @@ function HomePage({ onTrackSelect }) {
     }, [avgColor])
 
     const handleMouseEnter = (idx, imgUrl) => {
-        countHover++;
+        countHover++
         setHoveredIdx(idx)
         updateAvgColor(imgUrl)
     }
